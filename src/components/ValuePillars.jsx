@@ -1,98 +1,71 @@
 import React from 'react';
 import { 
-  ShieldAlert, 
   Terminal, 
+  ShieldAlert, 
   Compass, 
-  Activity, 
+  BarChart3, 
   ArrowRight, 
-  Zap, 
-  Check, 
-  Cpu, 
-  Lock 
+  CheckCircle2, 
+  Cpu 
 } from 'lucide-react';
-import { VALUE_PILLARS } from '../data/cybraryData';
+import { VALUE_PROPOSITIONS } from '../data/cybraryData';
 
 const iconMap = {
-  ShieldAlert: ShieldAlert,
-  Terminal: Terminal,
-  Compass: Compass,
-  Activity: Activity
+  labs: Terminal,
+  threats: ShieldAlert,
+  careers: Compass,
+  enterprise: BarChart3
 };
 
-export default function ValuePillars({ onSelectFilter }) {
+export default function ValuePillars() {
   return (
-    <section className="py-20 bg-[#060B13] relative overflow-hidden">
-      {/* Background radial highlight */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#00E599]/5 rounded-full blur-[150px] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-20 bg-[#070B14] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D1728] border border-[#00E599]/30 text-xs font-semibold text-[#00E599] font-mono">
-            <Cpu className="w-3.5 h-3.5" />
-            <span>THE CYBRARY METHODOLOGY</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Designed for Real Defense, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E599] to-[#00D2FF]">
-              Not Just Multiple Choice Tests.
-            </span>
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
+          <p className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+            The Cybrary Advantage
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Purpose-Built for Real-World Cyber Defense.
           </h2>
-          <p className="text-base sm:text-lg text-[#94A3B8]">
-            Cyber attackers don't follow textbook theory. Cybrary immerses you in live virtual sandboxes, active adversary emulation, and quantifiable competency development.
+          <p className="text-sm sm:text-base text-slate-300">
+            Adversaries do not follow multiple-choice tests. Cybrary equips practitioners and enterprise teams through continuous hands-on validation.
           </p>
         </div>
 
         {/* 4 Pillars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {VALUE_PILLARS.map((pillar) => {
-            const IconComponent = iconMap[pillar.icon] || ShieldAlert;
+          {VALUE_PROPOSITIONS.map((item) => {
+            const Icon = iconMap[item.id] || Terminal;
             return (
               <div 
-                key={pillar.id}
-                className="group relative rounded-2xl bg-[#0A1220] border border-[#19253B] hover:border-[#00E599]/50 p-8 transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] hover:-translate-y-1 overflow-hidden"
+                key={item.id}
+                className="p-8 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all duration-200 flex flex-col justify-between"
               >
-                {/* Corner Gradient Glow */}
-                <div className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl ${pillar.gradient} rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none`}></div>
-
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div>
-                    {/* Top Row: Icon + Tag */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="p-3.5 rounded-xl bg-[#0D1728] border border-[#1e3252] text-[#00E599] group-hover:scale-110 group-hover:border-[#00E599]/40 transition-all duration-300 shadow-[0_0_15px_rgba(0,229,153,0.15)]">
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-                      <span className="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-[#132139] text-slate-300 border border-white/5">
-                        {pillar.tag}
-                      </span>
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400">
+                      <Icon className="w-5 h-5" />
                     </div>
-
-                    {/* Title */}
-                    <h3 className="text-2xl font-bold text-white group-hover:text-[#00E599] transition-colors mb-3">
-                      {pillar.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-                      {pillar.description}
-                    </p>
+                    <span className="text-[11px] font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700/80">
+                      {item.badge}
+                    </span>
                   </div>
 
-                  {/* Bottom Stats & Action */}
-                  <div className="mt-8 pt-6 border-t border-[#19253B] flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#00E599]"></span>
-                      <span className="text-xs font-mono font-bold text-white">{pillar.stats}</span>
-                    </div>
-                    <a 
-                      href="#courses"
-                      className="text-xs font-bold text-[#00E599] group-hover:text-white flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>Explore Labs</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2.5">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-300 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="mt-8 pt-5 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                  <span className="text-emerald-400 font-semibold">{item.tag}</span>
+                  <span className="text-slate-400">{item.stats}</span>
                 </div>
               </div>
             );
@@ -103,4 +76,3 @@ export default function ValuePillars({ onSelectFilter }) {
     </section>
   );
 }
-

@@ -7,119 +7,113 @@ import {
   CheckCircle2, 
   ArrowRight, 
   Lock, 
-  Cpu, 
-  Layers 
+  Cpu 
 } from 'lucide-react';
 
 export default function EnterpriseSection({ onOpenAuth }) {
   const [teamSize, setTeamSize] = useState(25);
 
-  const estimatedHoursSaved = teamSize * 38;
-  const estimatedCostSavings = teamSize * 2400;
+  const estimatedHoursSaved = teamSize * 36;
+  const estimatedCostSavings = teamSize * 2200;
 
   return (
-    <section id="enterprise" className="py-20 bg-[#070D18] border-t border-[#19253B] relative overflow-hidden">
+    <section id="enterprise" className="py-20 bg-[#090D16] border-t border-slate-800 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Left Column: Narrative & Enterprise Capabilities */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D1728] border border-[#00E599]/30 text-xs font-mono font-semibold text-[#00E599]">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>CYBRARY FOR ENTERPRISE & TEAMS</span>
-            </div>
+          {/* Left Column */}
+          <div className="lg:col-span-7 space-y-5">
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+              Cybrary for Enterprise & Government
+            </span>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Transform Your Security Team From <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E599] to-[#00D2FF]">
-                Reactive to Resilient.
-              </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              Transform Your Security Organization from Reactive to Threat-Ready.
             </h2>
 
             <p className="text-base text-slate-300 leading-relaxed">
-              Equip your SOC, incident response, and cloud engineering units with verified competencies. Replace stale annual check-box training with continuous adversary emulation exercises.
+              Equip your SOC, incident response, and cloud engineering units with verifiable competencies. Replace passive annual awareness videos with continuous adversary emulation exercises.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-xl bg-[#0A1220] border border-[#19253B] space-y-2">
-                <div className="flex items-center gap-2 text-white font-bold text-sm">
-                  <BarChart3 className="w-4 h-4 text-[#00E599]" />
-                  <span>Readiness Scorecards</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+              <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-white font-semibold text-xs">
+                  <BarChart3 className="w-4 h-4 text-emerald-400" />
+                  <span>Workforce Skill Matrices</span>
                 </div>
-                <p className="text-xs text-slate-400">
-                  Quantifiable proof of team proficiency across MITRE ATT&CK tactics for executive boards.
+                <p className="text-slate-400 text-xs">
+                  Quantifiable proof of defensive proficiency mapped to MITRE ATT&CK for your executive board.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0A1220] border border-[#19253B] space-y-2">
-                <div className="flex items-center gap-2 text-white font-bold text-sm">
+              <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-white font-semibold text-xs">
                   <Cpu className="w-4 h-4 text-cyan-400" />
-                  <span>Custom Range Days</span>
+                  <span>Custom Cloud Range Days</span>
                 </div>
-                <p className="text-xs text-slate-400">
-                  Host live team-based red vs. blue simulation events in sandboxed cloud ranges.
+                <p className="text-slate-400 text-xs">
+                  Host live team-based red vs. blue simulation events in dedicated sandboxed environments.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0A1220] border border-[#19253B] space-y-2">
-                <div className="flex items-center gap-2 text-white font-bold text-sm">
+              <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-white font-semibold text-xs">
                   <Lock className="w-4 h-4 text-purple-400" />
                   <span>SSO & LMS Integration</span>
                 </div>
-                <p className="text-xs text-slate-400">
-                  Seamless Okta, Azure AD, SCIM provisioning and automated compliance reporting.
+                <p className="text-slate-400 text-xs">
+                  Seamless Okta, Azure AD, SCIM automated provisioning and LTI 1.3 compliance reporting.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#0A1220] border border-[#19253B] space-y-2">
-                <div className="flex items-center gap-2 text-white font-bold text-sm">
+              <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-white font-semibold text-xs">
                   <ShieldCheck className="w-4 h-4 text-amber-400" />
                   <span>42% MTTR Reduction</span>
                 </div>
-                <p className="text-xs text-slate-400">
+                <p className="text-slate-400 text-xs">
                   Proven decrease in Mean Time To Remediate security incidents within 90 days.
                 </p>
               </div>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => onOpenAuth('signup')}
-                className="px-6 py-3.5 rounded-xl font-bold text-sm text-[#060B13] bg-[#00E599] hover:bg-[#00c784] shadow-lg flex items-center justify-center gap-2 transition-all"
+                className="px-6 py-3 rounded-lg font-bold text-xs sm:text-sm text-slate-950 bg-emerald-400 hover:bg-emerald-300 shadow transition-colors flex items-center justify-center gap-2"
               >
                 <span>Request Enterprise Demo</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
                 href="#pricing"
-                className="px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-[#0A1220] hover:bg-[#132139] border border-[#19253B] flex items-center justify-center transition-all"
+                className="px-5 py-3 rounded-lg font-semibold text-xs sm:text-sm text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center justify-center transition-colors"
               >
-                View Team Pricing Tiers
+                View Team Pricing
               </a>
             </div>
           </div>
 
-          {/* Right Column: Interactive Team ROI / Readiness Calculator */}
+          {/* Right Column: Interactive Team ROI Calculator */}
           <div className="lg:col-span-5">
-            <div className="p-8 rounded-3xl bg-[#0A1220] border border-[#1e3252] shadow-2xl relative">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E599]/10 rounded-full blur-2xl pointer-events-none"></div>
-
-              <div className="flex items-center justify-between mb-6">
-                <h4 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Users className="w-5 h-5 text-[#00E599]" />
-                  <span>Team ROI Calculator</span>
+            <div className="p-6 sm:p-7 rounded-xl bg-slate-900 border border-slate-700 shadow-xl space-y-5">
+              
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Users className="w-4 h-4 text-emerald-400" />
+                  <span>Team ROI & Readiness Estimator</span>
                 </h4>
-                <span className="text-[11px] font-mono text-[#00E599] bg-[#00E599]/10 px-2 py-0.5 rounded border border-[#00E599]/20">
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-900/60">
                   Interactive
                 </span>
               </div>
 
               {/* Slider for team size */}
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-300 font-medium">Security Team Size:</span>
-                  <span className="text-xl font-extrabold text-[#00E599] font-mono">{teamSize} Engineers</span>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-300 font-medium">Security Engineering Seats:</span>
+                  <span className="text-sm font-bold text-emerald-400 font-mono">{teamSize} Engineers</span>
                 </div>
                 <input 
                   type="range" 
@@ -128,48 +122,46 @@ export default function EnterpriseSection({ onOpenAuth }) {
                   step="5"
                   value={teamSize} 
                   onChange={(e) => setTeamSize(Number(e.target.value))}
-                  className="w-full accent-[#00E599] bg-[#19253B] h-2 rounded-lg cursor-pointer"
+                  className="w-full accent-emerald-400 bg-slate-800 h-2 rounded cursor-pointer"
                 />
-                <div className="flex justify-between text-[11px] text-slate-500 font-mono">
+                <div className="flex justify-between text-[10px] text-slate-500 font-mono">
                   <span>5 seats</span>
                   <span>100 seats</span>
                   <span>200+ seats</span>
                 </div>
               </div>
 
-              {/* Calculated Results Box */}
-              <div className="space-y-4 p-5 rounded-2xl bg-[#060B13] border border-[#19253B]">
-                <div className="flex items-center justify-between border-b border-white/5 pb-3">
-                  <span className="text-xs text-slate-400">Estimated Annual Cost Savings:</span>
-                  <span className="text-lg font-black text-white font-mono">
+              {/* Calculated Results */}
+              <div className="space-y-3 p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono">
+                <div className="flex items-center justify-between border-b border-slate-900 pb-2">
+                  <span className="text-slate-400">Est. Annual Training Cost Avoidance:</span>
+                  <span className="text-base font-bold text-white">
                     ${estimatedCostSavings.toLocaleString()}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between border-b border-white/5 pb-3">
-                  <span className="text-xs text-slate-400">Engineering Hours Reclaimed:</span>
-                  <span className="text-base font-bold text-[#00E599] font-mono">
+                <div className="flex items-center justify-between border-b border-slate-900 pb-2">
+                  <span className="text-slate-400">Engineering Hours Reclaimed:</span>
+                  <span className="text-sm font-semibold text-emerald-400">
                     {estimatedHoursSaved.toLocaleString()} hrs / yr
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-400">Target Certification Pass Rate:</span>
-                  <span className="text-base font-bold text-cyan-400 font-mono">96.4%</span>
+                  <span className="text-slate-400">First-Time Certification Pass:</span>
+                  <span className="text-sm font-semibold text-cyan-400">96.4%</span>
                 </div>
               </div>
 
-              <div className="mt-6">
-                <button
-                  onClick={() => onOpenAuth('signup')}
-                  className="w-full py-3 px-4 rounded-xl text-xs font-bold text-[#060B13] bg-[#00E599] hover:bg-[#00c784] transition-all text-center"
-                >
-                  Download Custom Team Capability Report
-                </button>
-              </div>
+              <button
+                onClick={() => onOpenAuth('signup')}
+                className="w-full py-2.5 px-4 rounded-lg text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 transition-colors text-center"
+              >
+                Download Organizational Capability PDF
+              </button>
 
-              <p className="text-[11px] text-slate-500 text-center mt-3 font-mono">
-                * Based on independent Forrester TEI study of enterprise cyber readiness programs.
+              <p className="text-[10px] text-slate-500 text-center font-mono">
+                * Based on independent Forrester TEI enterprise cyber workforce studies.
               </p>
             </div>
           </div>
@@ -180,4 +172,3 @@ export default function EnterpriseSection({ onOpenAuth }) {
     </section>
   );
 }
-

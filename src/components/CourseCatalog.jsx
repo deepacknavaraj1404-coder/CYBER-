@@ -1,73 +1,72 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  COURSE_CATEGORIES, 
-  COURSES_DATA 
-} from '../data/cybraryData';
+import { COURSES_DATA } from '../data/cybraryData';
 import { 
   Search, 
   Star, 
   Clock, 
   Terminal, 
-  Award, 
   ChevronRight, 
   Filter, 
-  Sparkles, 
-  ShieldCheck, 
+  BookOpen,
   Zap,
-  BookOpen
+  CheckCircle2
 } from 'lucide-react';
 
-export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+const CATEGORIES = [
+  { id: 'all', label: 'All Curriculums' },
+  { id: 'soc', label: 'SOC & Defensive Ops' },
+  { id: 'offensive', label: 'Pen Testing & Ethical Hacking' },
+  { id: 'certifications', label: 'Certifications Prep' },
+  { id: 'cloud', label: 'Cloud & DevSecOps' },
+  { id: 'incident', label: 'DFIR & Ransomware Response' }
+];
 
-  const filteredCourses = useMemo(() => {
-    return COURSES_DATA.filter(course => {
-      const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
-      const matchesQuery = 
-        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.tools.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        course.mitreTactics.some(m => m.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesQuery;
+export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
+  const [selectedCat, setSelectedCat] = useState('all');
+  const [query, setQuery] = useState('');
+
+  const filtered = useMemo(() => {
+    return COURSES_DATA.filter(c => {
+      const matchCat = selectedCat === 'all' || c.category === selectedCat;
+      const matchQuery = 
+        c.title.toLowerCase().includes(query.toLowerCase()) ||
+        c.description.toLowerCase().includes(query.toLowerCase()) ||
+        c.tools.some(t => t.toLowerCase().includes(query.toLowerCase()));
+      return matchCat && matchQuery;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCat, query]);
 
   return (
-    <section id="courses" className="py-20 bg-[#060B13] relative">
+    <section id="courses" className="py-20 bg-[#070B14] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D1728] border border-[#00E599]/30 text-xs font-mono font-semibold text-[#00E599]">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>EXPLORE THE THREAT-INFORMED CATALOG</span>
-            </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+              Curated Curriculum & Threat Labs
+            </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Master Cybersecurity Disciplines <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E599] to-[#00D2FF]">
-                With Elite Industry Practitioners.
-              </span>
+              Explore Courses, Labs & Certifications
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base">
-              Learn offensive, defensive, and leadership skills mapped to industry standards and threat actor campaigns.
+            <p className="text-sm text-slate-300">
+              Developed by former NSA operators, Mandiant threat hunters, and Fortune 500 security architects.
             </p>
           </div>
 
-          {/* Search Input Bar */}
+          {/* Search Box */}
           <div className="relative w-full md:w-80">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input 
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by tool, CVE, or topic..."
-              className="w-full bg-[#0A1220] border border-[#19253B] focus:border-[#00E599] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-colors"
+              className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-500 rounded-lg pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 outline-none transition-colors"
             />
-            {searchQuery && (
+            {query && (
               <button 
-                onClick={() => setSearchQuery('')}
+                onClick={() => setQuery('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
               >
                 Clear
@@ -76,16 +75,16 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-4 scrollbar-none mb-10 border-b border-[#19253B]/50">
-          {COURSE_CATEGORIES.map((cat) => (
+        {/* Category Pills */}
+        <div className="flex items-center space-x-2 overflow-x-auto pb-4 scrollbar-none mb-8 border-b border-slate-800">
+          {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
-                selectedCategory === cat.id
-                  ? 'bg-[#00E599] text-[#060B13] font-bold shadow-[0_0_15px_rgba(0,229,153,0.3)]'
-                  : 'bg-[#0A1220] text-slate-400 hover:text-white hover:bg-[#132139] border border-[#19253B]'
+              onClick={() => setSelectedCat(cat.id)}
+              className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                selectedCat === cat.id
+                  ? 'bg-emerald-500 text-slate-950 font-bold'
+                  : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'
               }`}
             >
               {cat.label}
@@ -94,107 +93,100 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
         </div>
 
         {/* Course Cards Grid */}
-        {filteredCourses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredCourses.map((course) => (
-              <div 
+        {filtered.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((course) => (
+              <div
                 key={course.id}
                 onClick={() => onSelectCourse(course)}
-                className="group cursor-pointer rounded-2xl bg-[#0A1220] border border-[#19253B] hover:border-[#00E599]/50 transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden relative"
+                className="group cursor-pointer rounded-xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5 flex flex-col justify-between overflow-hidden"
               >
-                {/* Top Banner Tag */}
-                <div className="p-6 pb-0">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#0D1728] text-[#00E599] border border-[#00E599]/30">
+                {/* Visual Top Banner */}
+                <div className={`p-5 pb-4 bg-gradient-to-br ${course.thumbnailColor} border-b border-slate-800`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-900/90 text-emerald-400 px-2 py-0.5 rounded border border-slate-700">
                       {course.badge}
                     </span>
-                    <span className="text-xs text-slate-400 font-mono">
-                      {course.level}
+                    <span className="text-[11px] text-slate-300 font-mono">
+                      {course.updatedDate}
                     </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-white group-hover:text-[#00E599] transition-colors leading-snug line-clamp-2">
+                  <span className="text-[11px] font-mono text-slate-300">
+                    {course.type}
+                  </span>
+
+                  <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors mt-1 leading-snug line-clamp-2">
                     {course.title}
                   </h3>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-slate-400 mt-2 line-clamp-2 leading-relaxed">
-                    {course.description}
-                  </p>
                 </div>
 
-                <div className="p-6 pt-4 space-y-4">
-                  {/* MITRE ATT&CK Badges */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {course.mitreTactics.map((tactic, i) => (
-                      <span key={i} className="text-[10px] font-mono bg-[#132139] text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/20">
-                        {tactic}
+                {/* Card Content Body */}
+                <div className="p-5 space-y-3">
+                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                    {course.description}
+                  </p>
+
+                  {/* Instructor */}
+                  <div className="text-[11px] text-slate-400">
+                    <span className="font-semibold text-slate-200">{course.instructor}</span> • {course.instructorTitle}
+                  </div>
+
+                  {/* MITRE Tags */}
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {course.mitreTactics.slice(0, 2).map((tac, i) => (
+                      <span key={i} className="text-[10px] font-mono bg-slate-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800">
+                        {tac.split(' ')[0]}
                       </span>
                     ))}
+                    {course.mitreTactics.length > 2 && (
+                      <span className="text-[10px] font-mono text-slate-400 py-0.5">
+                        +{course.mitreTactics.length - 2} more
+                      </span>
+                    )}
                   </div>
 
-                  {/* Tools List */}
-                  <div className="text-xs text-slate-400 flex items-center gap-1.5 overflow-hidden text-ellipsis whitespace-nowrap">
-                    <Terminal className="w-3.5 h-3.5 text-[#00E599] flex-shrink-0" />
-                    <span>Tools: {course.tools.join(', ')}</span>
-                  </div>
-
-                  {/* Rating & Stats Row */}
-                  <div className="flex items-center justify-between pt-3 border-t border-[#19253B] text-xs text-slate-400 font-mono">
-                    <div className="flex items-center gap-1.5 text-amber-400 font-bold">
+                  {/* Meta Row: Rating, Duration, Labs */}
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-mono">
+                    <div className="flex items-center gap-1 text-amber-400 font-bold">
                       <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                       <span>{course.rating}</span>
-                      <span className="text-slate-500 text-[11px]">({course.reviewsCount})</span>
+                      <span className="text-slate-400">({course.reviewsCount})</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-slate-400" />
                       <span>{course.duration}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[#00E599]">
+                    <div className="flex items-center gap-1 text-emerald-400 font-semibold">
                       <Zap className="w-3.5 h-3.5" />
                       <span>{course.labsCount} Labs</span>
                     </div>
                   </div>
 
-                  {/* Bottom Action Button */}
-                  <button 
-                    className="w-full mt-2 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-[#132139] group-hover:bg-[#00E599] group-hover:text-[#060B13] border border-[#1e3252] group-hover:border-[#00E599] transition-all flex items-center justify-center gap-1.5"
-                  >
-                    <span>Launch Virtual Lab & Syllabus</span>
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                  {/* Button */}
+                  <div className="pt-1">
+                    <button className="w-full py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 group-hover:bg-emerald-400 group-hover:text-slate-950 transition-colors flex items-center justify-center gap-1">
+                      <span>View Syllabus & Labs</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-[#0A1220] rounded-2xl border border-[#19253B] space-y-3">
-            <Filter className="w-8 h-8 text-slate-500 mx-auto" />
-            <h4 className="text-lg font-bold text-white">No courses match your search</h4>
-            <p className="text-sm text-slate-400">Try adjusting your keywords or selecting another category.</p>
-            <button 
-              onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}
-              className="px-4 py-2 bg-[#00E599] text-[#060B13] text-xs font-bold rounded-lg"
+          <div className="text-center py-12 bg-slate-900/50 rounded-xl border border-slate-800 space-y-2">
+            <p className="text-sm font-semibold text-white">No courses found matching "{query}"</p>
+            <button
+              onClick={() => { setSelectedCat('all'); setQuery(''); }}
+              className="text-xs text-emerald-400 underline font-medium"
             >
-              Reset Filters
+              Clear filters and view all
             </button>
           </div>
         )}
-
-        {/* View Full Catalog Callout */}
-        <div className="mt-14 text-center">
-          <button 
-            onClick={() => onOpenAuth('signup')}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#0D1728] hover:bg-[#132139] border border-[#19253B] hover:border-[#00E599]/40 transition-all"
-          >
-            <span>Explore All 1,200+ Interactive Cyber Labs in Full Catalog</span>
-            <ChevronRight className="w-4 h-4 text-[#00E599]" />
-          </button>
-        </div>
 
       </div>
     </section>
   );
 }
-
