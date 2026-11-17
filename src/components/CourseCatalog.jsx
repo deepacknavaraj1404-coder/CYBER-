@@ -4,31 +4,33 @@ import {
   Search, 
   Star, 
   Clock, 
-  Terminal, 
-  ChevronRight, 
-  Zap
+  User, 
+  Play, 
+  ArrowRight, 
+  Zap, 
+  CheckCircle2 
 } from 'lucide-react';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Curriculums' },
-  { id: 'soc', label: 'SOC & Defensive Ops' },
+  { id: 'all', label: 'All Courses' },
+  { id: 'soc', label: 'SOC & Blue Team' },
   { id: 'offensive', label: 'Pen Testing & Ethical Hacking' },
   { id: 'certifications', label: 'Certifications Prep' },
   { id: 'cloud', label: 'Cloud & DevSecOps' },
-  { id: 'incident', label: 'DFIR & Ransomware Response' }
+  { id: 'incident', label: 'DFIR & Ransomware' }
 ];
 
-const bannerThemes = {
-  soc: 'bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-100 text-emerald-900',
-  offensive: 'bg-gradient-to-r from-sky-50 to-cyan-50 border-sky-100 text-sky-900',
-  certifications: 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-100 text-amber-900',
-  cloud: 'bg-gradient-to-r from-indigo-50 to-blue-50 border-indigo-100 text-indigo-900',
-  incident: 'bg-gradient-to-r from-rose-50 to-pink-50 border-rose-100 text-rose-900'
-};
+// Helper to extract YouTube video ID
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+  return match ? match[1] : null;
+}
 
 export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
   const [selectedCat, setSelectedCat] = useState('all');
   const [query, setQuery] = useState('');
+  const [playingVideoId, setPlayingVideoId] = useState(null);
 
   const filtered = useMemo(() => {
     return COURSES_DATA.filter(c => {
@@ -42,32 +44,33 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
   }, [selectedCat, query]);
 
   return (
-    <section id="courses" className="py-20 bg-slate-50 border-b border-slate-200 relative">
+    <section id="courses" className="py-16 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-          <div className="space-y-2 max-w-2xl">
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
-              Curated Curriculum & Threat Labs
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Explore Courses, Labs & Certifications
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 uppercase tracking-wider font-mono mb-2">
+              <Zap className="w-3.5 h-3.5" />
+              <span>Professional Course Marketplace</span>
+            </div>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              Featured Cybersecurity Courses & Labs
             </h2>
-            <p className="text-sm text-slate-600">
-              Developed by former NSA operators, Mandiant threat hunters, and Fortune 500 security architects.
+            <p className="text-slate-600 text-sm mt-1 max-w-2xl">
+              Taught by former Mandiant incident responders, Fortune 500 CISOs, and defense specialists.
             </p>
           </div>
 
           {/* Search Box */}
-          <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <div className="relative w-full md:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input 
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by tool, CVE, or topic..."
-              className="w-full bg-white border border-slate-300 focus:border-emerald-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 outline-none transition-colors shadow-2xs"
+              placeholder="Filter courses by tool or skill..."
+              className="w-full bg-slate-50 border border-slate-200 focus:border-emerald-600 rounded-md pl-9 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 outline-none transition-colors"
             />
             {query && (
               <button 
@@ -80,16 +83,16 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-4 scrollbar-none mb-8 border-b border-slate-200">
+        {/* Category Filter Tabs */}
+        <div className="flex items-center space-x-1.5 overflow-x-auto pb-2 scrollbar-none mb-8 border-b border-slate-200 text-xs">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCat(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-md font-semibold whitespace-nowrap transition-colors ${
                 selectedCat === cat.id
-                  ? 'bg-slate-900 text-white font-bold shadow-xs'
-                  : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               {cat.label}
@@ -101,80 +104,128 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((course) => {
-              const bannerClass = bannerThemes[course.category] || bannerThemes.soc;
+              const videoId = extractYouTubeId(course.videoUrl);
+              const thumbnailUrl = videoId 
+                ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+                : 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80';
+              const isPlaying = playingVideoId === course.id && Boolean(videoId);
+
               return (
                 <div
                   key={course.id}
-                  onClick={() => onSelectCourse(course)}
-                  className="group cursor-pointer rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-300 transition-all duration-200 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between overflow-hidden"
+                  className="bg-white rounded-lg border border-slate-200 hover:border-emerald-500 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden group"
                 >
-                  {/* Visual Top Banner */}
-                  <div className={`p-5 pb-4 border-b ${bannerClass}`}>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-white/90 text-slate-800 px-2 py-0.5 rounded border border-slate-200 shadow-2xs">
-                        {course.badge}
-                      </span>
-                      <span className="text-[11px] text-slate-600 font-mono">
-                        {course.updatedDate}
-                      </span>
-                    </div>
+                  {/* Top Thumbnail / Video Preview */}
+                  <div className="relative aspect-video w-full bg-slate-900 overflow-hidden shrink-0">
+                    {isPlaying ? (
+                      <div className="relative w-full h-full">
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+                          title={course.title}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPlayingVideoId(null);
+                          }}
+                          className="absolute top-2 right-2 bg-slate-900/90 text-white text-[10px] font-mono px-2 py-0.5 rounded shadow z-20 hover:bg-black"
+                        >
+                          ✕ Close
+                        </button>
+                      </div>
+                    ) : (
+                      <div 
+                        onClick={() => {
+                          if (videoId) {
+                            setPlayingVideoId(course.id);
+                          } else {
+                            onSelectCourse(course);
+                          }
+                        }}
+                        className="relative w-full h-full cursor-pointer group/thumb"
+                      >
+                        <img 
+                          src={thumbnailUrl} 
+                          alt={course.title}
+                          className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/35 group-hover/thumb:bg-black/20 transition-colors flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-full bg-red-600 group-hover/thumb:scale-110 text-white flex items-center justify-center shadow-lg transition-transform">
+                            <Play className="w-5 h-5 fill-white ml-0.5" />
+                          </div>
+                        </div>
 
-                    <span className="text-[11px] font-mono font-semibold text-slate-600 block">
-                      {course.type}
-                    </span>
+                        {/* Top Badge */}
+                        <div className="absolute top-2 left-2">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-slate-900/80 text-white px-2 py-0.5 rounded backdrop-blur-xs">
+                            {course.badge}
+                          </span>
+                        </div>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mt-1 leading-snug line-clamp-2">
-                      {course.title}
-                    </h3>
+                        {/* Duration Pill */}
+                        <div className="absolute bottom-2 right-2 text-[10px] font-mono text-white bg-slate-900/80 px-2 py-0.5 rounded backdrop-blur-xs flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-amber-400" />
+                          <span>{course.duration}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Card Content Body */}
-                  <div className="p-5 space-y-3.5">
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                      {course.description}
-                    </p>
+                  {/* Body Content */}
+                  <div className="p-4 flex flex-col justify-between flex-1 space-y-3">
+                    <div>
+                      {/* Level and Category Tag */}
+                      <div className="flex items-center justify-between text-xs mb-1.5">
+                        <span className="text-[10px] font-mono font-bold uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
+                          {course.level}
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-500">
+                          {course.labsCount} Hands-On Labs
+                        </span>
+                      </div>
 
-                    {/* Instructor */}
-                    <div className="text-[11px] text-slate-500">
-                      <span className="font-semibold text-slate-800">{course.instructor}</span> • {course.instructorTitle}
+                      {/* Course Title */}
+                      <h3 
+                        onClick={() => onSelectCourse(course)}
+                        className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors cursor-pointer leading-snug line-clamp-2"
+                      >
+                        {course.title}
+                      </h3>
+
+                      {/* Instructor */}
+                      <div className="flex items-center gap-1.5 text-xs text-slate-600 mt-2">
+                        <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span className="truncate">
+                          {course.instructor} • <span className="text-slate-400">{course.instructorTitle}</span>
+                        </span>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs text-slate-600 mt-2 line-clamp-2 leading-relaxed">
+                        {course.description}
+                      </p>
                     </div>
 
-                    {/* MITRE Tags */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {course.mitreTactics.slice(0, 2).map((tac, i) => (
-                        <span key={i} className="text-[10px] font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
-                          {tac.split(' ')[0]}
-                        </span>
-                      ))}
-                      {course.mitreTactics.length > 2 && (
-                        <span className="text-[10px] font-mono text-slate-500 py-0.5">
-                          +{course.mitreTactics.length - 2} more
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Meta Row: Rating, Duration, Labs */}
-                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
-                      <div className="flex items-center gap-1 text-amber-500 font-bold">
+                    {/* Footer Row: Rating, CPE, and Explore Action */}
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-xs">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span>{course.rating}</span>
-                        <span className="text-slate-400">({course.reviewsCount})</span>
+                        <span className="font-bold text-slate-800">{course.rating}</span>
+                        <span className="text-[11px] text-slate-400 font-mono">
+                          ({course.reviewsCount.toLocaleString()})
+                        </span>
                       </div>
-                      <div className="flex items-center gap-1 text-slate-600">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{course.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-emerald-700 font-bold">
-                        <Zap className="w-3.5 h-3.5" />
-                        <span>{course.labsCount} Labs</span>
-                      </div>
-                    </div>
 
-                    {/* Action Button */}
-                    <div className="pt-1">
-                      <button className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white transition-colors flex items-center justify-center gap-1">
-                        <span>View Syllabus & Labs</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                      <button
+                        onClick={() => onSelectCourse(course)}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-emerald-700 hover:text-white bg-emerald-50 hover:bg-emerald-600 rounded-md border border-emerald-200 hover:border-emerald-600 transition-colors"
+                      >
+                        <span>Explore Course</span>
+                        <ArrowRight className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
@@ -183,13 +234,13 @@ export default function CourseCatalog({ onSelectCourse, onOpenAuth }) {
             })}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 space-y-2">
+          <div className="text-center py-12 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
             <p className="text-sm font-semibold text-slate-900">No courses found matching "{query}"</p>
             <button
               onClick={() => { setSelectedCat('all'); setQuery(''); }}
               className="text-xs text-emerald-700 underline font-semibold"
             >
-              Clear filters and view all
+              Clear search and view all courses
             </button>
           </div>
         )}

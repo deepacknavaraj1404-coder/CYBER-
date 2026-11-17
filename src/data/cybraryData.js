@@ -120,6 +120,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Initial Access (TA0001)", "Execution (TA0002)", "Persistence (TA0003)"],
     tools: ["Splunk Enterprise 9.2", "Wireshark", "Sysmon", "Suricata IDS", "TheHive"],
     xp: 2650,
+    videoUrl: "https://www.youtube.com/shorts/TLejM2AhedM",
     modules: [
       { title: "Module 1: SOC Architecture & Event Pipeline", duration: "3h 45m", labs: 2 },
       { title: "Module 2: Splunk SPL Querying & Correlation Rules", duration: "6h 20m", labs: 4 },
@@ -148,6 +149,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Discovery (TA0007)", "Credential Access (TA0006)", "Exploitation (T1190)"],
     tools: ["Burp Suite Professional", "Postman", "OWASP ZAP", "SQLmap", "wfuzz"],
     xp: 3400,
+    videoUrl: "https://www.youtube.com/watch?v=QmR9HzGSIWM",
     modules: [
       { title: "Module 1: Modern Web Architecture Reconnaissance", duration: "4h 10m", labs: 3 },
       { title: "Module 2: Broken Object-Level Auth (BOLA) & API Logic Flaws", duration: "7h 30m", labs: 6 },
@@ -176,6 +178,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Defense Evasion (TA0005)", "Command and Control (TA0011)"],
     tools: ["Nmap", "Wireshark", "OpenSSL", "pfSense", "Linux CLI"],
     xp: 4200,
+    videoUrl: "https://www.youtube.com/watch?v=9NE33fpQuw8",
     modules: [
       { title: "Domain 1: General Security Concepts (12%)", duration: "6h 00m", labs: 4 },
       { title: "Domain 2: Threats, Vulnerabilities & Mitigations (22%)", duration: "10h 30m", labs: 8 },
@@ -204,6 +207,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Risk Assessment", "Identity & Access", "Security Operations"],
     tools: ["NIST 800-53", "ISO 27001", "ThreatModeler", "Risk Register"],
     xp: 4800,
+    videoUrl: "https://www.youtube.com/watch?v=_nyZu43Qqsc",
     modules: [
       { title: "Domain 1: Security and Risk Management", duration: "8h 00m", labs: 2 },
       { title: "Domain 2: Asset Security", duration: "4h 30m", labs: 2 },
@@ -232,6 +236,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Privilege Escalation (TA0004)", "Collection (TA0009)"],
     tools: ["AWS IAM", "CloudTrail", "Amazon GuardDuty", "Prowler", "Terraform"],
     xp: 2200,
+    videoUrl: "https://www.youtube.com/watch?v=upQHB3lmlxw",
     modules: [
       { title: "Module 1: AWS Multi-Account Strategy & IAM Best Practices", duration: "4h 20m", labs: 3 },
       { title: "Module 2: Network Isolation, VPC Flow Logs & Security Groups", duration: "5h 10m", labs: 3 },
@@ -260,6 +265,7 @@ export const COURSES_DATA = [
     mitreTactics: ["Lateral Movement (T1021)", "Impact (T1486)", "Defense Evasion (T1070)"],
     tools: ["Volatility 3", "FTK Imager", "KAPE", "Eric Zimmerman Tools", "YARA"],
     xp: 2500,
+    videoUrl: "https://www.youtube.com/watch?v=kEgX4v18h0I",
     modules: [
       { title: "Module 1: Live Triage & Volatile Memory Preservation", duration: "4h 00m", labs: 3 },
       { title: "Module 2: Windows Event Log Reconstruction & PsExec Tracking", duration: "5h 30m", labs: 4 },
@@ -351,6 +357,288 @@ export const CAREER_PATHS = [
       { step: "03", name: "DevSecOps Pipeline Guardrails", time: "5 Weeks", desc: "Shift-left static analysis (SAST), software composition analysis (SCA) in GitHub Actions, and secret detection." },
       { step: "04", name: "Automated Cloud Incident Response", time: "6 Weeks", desc: "Event-driven security automation with Lambda, GuardDuty finding triage, and cloud forensics." }
     ]
+  },
+  {
+    id: "ai-security-engineer",
+    role: "AI Security Engineer & LLM Defense",
+    title: "AI Security Engineer & LLM Defense Pathway",
+    niceCode: "SP-DEV-003 (AI/ML Security Specialist)",
+    category: "AI & Machine Learning Security",
+    level: "Intermediate to Advanced",
+    instructor: "Dr. Maya Lin, PhD",
+    instructorTitle: "Principal AI Safety & Adversarial ML Researcher",
+    rating: 4.95,
+    reviewsCount: 1180,
+    price: "Free with Membership",
+    videoUrl: "https://www.youtube.com/watch?v=kEgX4v18h0I",
+    avgSalary: "$168,500",
+    salarySource: "Global Cybersecurity & AI Compensation Index 2026",
+    growth: "+48% 10-Yr Projected Growth",
+    estTime: "6 to 8 Months (8 hrs/week)",
+    summary: "Secure generative AI pipelines, audit LLM deployments against OWASP Top 10 for LLMs, mitigate prompt injections, and protect proprietary model weights and training datasets.",
+    targetEmployers: ["OpenAI", "Anthropic", "Google DeepMind", "Microsoft Security", "Enterprise AI Consultancies"],
+    skillsLearned: ["OWASP Top 10 for LLMs", "Prompt Injection & Jailbreak Defense", "Adversarial Robustness & Red Teaming", "RAG Pipeline Security & Vector DB Auditing", "Model Inversion & Data Poisoning Mitigation"],
+    steps: [
+      { step: "01", name: "AI Architecture & Adversarial Threat Modeling", time: "4 Weeks", desc: "Transformer architectures, embeddings, vector databases, and threat modeling with MITRE ATLAS & OWASP LLM." },
+      { step: "02", name: "Prompt Injections, Jailbreaking & Red Teaming", time: "5 Weeks", desc: "Direct/indirect prompt injection, ASCII/multilingual evasion, automated red-teaming scripts, and guardrail enforcement." },
+      { step: "03", name: "RAG & Vector Pipeline Hardening", time: "5 Weeks", desc: "Securing vector databases (Pinecone, Milvus), preventing data leakage, tenant isolation, and API payload sanitization." },
+      { step: "04", name: "Model Governance, Privacy & Compliance", time: "6 Weeks", desc: "Mitigating model inversion, membership inference, differential privacy, NIST AI RMF, and EU AI Act compliance." }
+    ]
+  }
+];
+
+export const EXPLORE_CATEGORIES = [
+  {
+    id: "fundamentals",
+    title: "Cybersecurity Fundamentals",
+    description: "Core networking, Linux CLI, OSI model, encryption protocols, and foundational defense concepts.",
+    articleCount: 42,
+    labCount: 16,
+    icon: "ShieldCheck",
+    popularTag: "Start Here"
+  },
+  {
+    id: "ethical-hacking",
+    title: "Ethical Hacking",
+    description: "Authorized penetration techniques, vulnerability analysis, Kali Linux tools, and ethical disclosure standards.",
+    articleCount: 58,
+    labCount: 28,
+    icon: "Terminal",
+    popularTag: "Popular"
+  },
+  {
+    id: "network-security",
+    title: "Network Security",
+    description: "Firewall architecture, IDS/IPS configuration, Wireshark packet capture, VLAN isolation, and VPN tunneling.",
+    articleCount: 36,
+    labCount: 20,
+    icon: "Network",
+    popularTag: "Core"
+  },
+  {
+    id: "soc-blue-team",
+    title: "SOC & Blue Team",
+    description: "SIEM log correlation, alert triage, incident response playbooks, threat hunting, and MITRE ATT&CK mapping.",
+    articleCount: 64,
+    labCount: 34,
+    icon: "Eye",
+    popularTag: "High Demand"
+  },
+  {
+    id: "penetration-testing",
+    title: "Penetration Testing",
+    description: "Active Directory exploitation, internal network pivoting, exploit weaponization, and red team engagements.",
+    articleCount: 51,
+    labCount: 26,
+    icon: "Crosshair",
+    popularTag: "Top Rated"
+  },
+  {
+    id: "cloud-security",
+    title: "Cloud Security",
+    description: "AWS, Azure, and GCP IAM policies, CloudTrail auditing, CSPM hardening, and least-privilege architectures.",
+    articleCount: 47,
+    labCount: 22,
+    icon: "Cloud",
+    popularTag: "Fast Growing"
+  },
+  {
+    id: "digital-forensics",
+    title: "Digital Forensics",
+    description: "Memory preservation with Volatility, disk image analysis, MFT timelines, registry hives, and chain of custody.",
+    articleCount: 29,
+    labCount: 14,
+    icon: "Search",
+    popularTag: "Investigative"
+  },
+  {
+    id: "malware-analysis",
+    title: "Malware Analysis",
+    description: "Static and dynamic reverse engineering, Ghidra disassembler, sandboxed execution, and YARA rule crafting.",
+    articleCount: 33,
+    labCount: 18,
+    icon: "Bug",
+    popularTag: "Advanced"
+  },
+  {
+    id: "app-security",
+    title: "Application Security",
+    description: "OWASP Top 10, source code review, Burp Suite API testing, secure SDLC, and input sanitization.",
+    articleCount: 44,
+    labCount: 24,
+    icon: "Code2",
+    popularTag: "Essential"
+  },
+  {
+    id: "ai-security",
+    title: "AI Security",
+    description: "Securing LLMs against prompt injection, MITRE ATLAS framework, model inversion defense, and AI red teaming.",
+    articleCount: 27,
+    labCount: 12,
+    icon: "Cpu",
+    popularTag: "Trending 2026"
+  },
+  {
+    id: "devsecops",
+    title: "DevSecOps",
+    description: "CI/CD automated security gates, container scanning (Trivy), Kubernetes pod policies, and SAST/DAST tooling.",
+    articleCount: 38,
+    labCount: 19,
+    icon: "GitBranch",
+    popularTag: "Enterprise"
+  },
+  {
+    id: "security-engineering",
+    title: "Security Engineering",
+    description: "Zero Trust architecture, cryptographic key management, IAM federations, enterprise PKI, and bastion hosts.",
+    articleCount: 35,
+    labCount: 17,
+    icon: "Wrench",
+    popularTag: "Architecture"
+  }
+];
+
+export const TUTORIALS_DATA = [
+  {
+    id: "tut-1",
+    title: "How to Build a Custom Wireshark Filter for Investigating C2 Traffic",
+    category: "Network Security",
+    difficulty: "Intermediate",
+    readTime: "12 min read",
+    author: "David Miller",
+    updated: "Nov 2026",
+    summary: "Step-by-step guide to isolating beaconing patterns, extracting unencrypted TLS SNIs, and tracking command-and-control communication in enterprise PCAPs.",
+    tags: ["Wireshark", "PCAP", "C2 Detection", "TCP/IP"]
+  },
+  {
+    id: "tut-2",
+    title: "Practical Guide to Finding and Exploiting Insecure Direct Object References (IDOR)",
+    category: "Application Security",
+    difficulty: "Beginner to Intermediate",
+    readTime: "15 min read",
+    author: "Sarah Chen",
+    updated: "Nov 2026",
+    summary: "Understand how broken access control allows attackers to view or modify unauthorized records. Includes interactive Burp Suite repeater examples and remediation patterns.",
+    tags: ["Burp Suite", "OWASP #1", "API Security", "Access Control"]
+  },
+  {
+    id: "tut-3",
+    title: "Splunk SPL Cheat Sheet: 25 Essential Queries for SOC Alert Triage",
+    category: "SOC & Blue Team",
+    difficulty: "Foundational",
+    readTime: "10 min read",
+    author: "Marcus Vance",
+    updated: "Oct 2026",
+    summary: "Reference guide for high-efficiency search processing language queries. Filter Windows Event ID 4624/4625, detect brute-force surges, and calculate baseline deviations.",
+    tags: ["Splunk", "SIEM", "SPL", "Windows Events"]
+  },
+  {
+    id: "tut-4",
+    title: "Prompt Injection & Jailbreak Defense: Securing Enterprise LLM Endpoints",
+    category: "AI Security",
+    difficulty: "Advanced",
+    readTime: "18 min read",
+    author: "Dr. Maya Lin",
+    updated: "Nov 2026",
+    summary: "Examine direct and indirect prompt injection attacks against Retrieval-Augmented Generation (RAG) pipelines and how to build dual-layer input validation guardrails.",
+    tags: ["OWASP LLM", "GenAI", "Prompt Injection", "Guardrails"]
+  },
+  {
+    id: "tut-5",
+    title: "Auditing AWS IAM Roles and Service Control Policies with Open-Source Tools",
+    category: "Cloud Security",
+    difficulty: "Intermediate",
+    readTime: "14 min read",
+    author: "Tariq Al-Mansoor",
+    updated: "Oct 2026",
+    summary: "Use Prowler and ScoutSuite to locate wildcards (`*`) in action blocks, identify overly permissive cross-account trusts, and apply least privilege automatically.",
+    tags: ["AWS", "IAM", "Prowler", "CloudTrail"]
+  },
+  {
+    id: "tut-6",
+    title: "Active Directory Kerberoasting: Detection and Remediation Strategies",
+    category: "Penetration Testing",
+    difficulty: "Intermediate to Advanced",
+    readTime: "16 min read",
+    author: "Sarah Chen",
+    updated: "Nov 2026",
+    summary: "Deep dive into requesting service tickets for SPNs, offline password cracking mechanics, Event ID 4769 auditing, and Group Managed Service Account (gMSA) adoption.",
+    tags: ["Active Directory", "Kerberos", "Red Team", "BloodHound"]
+  }
+];
+
+export const PRACTICE_LABS = [
+  {
+    id: "lab-1",
+    title: "Investigating a Live Ransomware Outbreak with Splunk & Sysmon",
+    category: "SOC & Blue Team",
+    type: "Interactive Virtual Lab",
+    difficulty: "Intermediate",
+    duration: "45 mins",
+    xp: 450,
+    tools: ["Splunk", "Sysmon", "Timeline Explorer"],
+    description: "Trace an initial phishing email click, detect execution of malicious PowerShell payloads, and isolate infected endpoints before file encryption spreads.",
+    activeUsers: 342
+  },
+  {
+    id: "lab-2",
+    title: "CTF Challenge: Breaking JSON Web Tokens & Bypassing Signature Verification",
+    category: "Application Security",
+    type: "Capture the Flag (CTF)",
+    difficulty: "Intermediate",
+    duration: "30 mins",
+    xp: 350,
+    tools: ["Burp Suite", "jwt.io", "CyberChef"],
+    description: "Exploit the 'none' algorithm flaw and forged public keys in a simulated banking application to elevate privileges to administrator and retrieve the flag.",
+    activeUsers: 512
+  },
+  {
+    id: "lab-3",
+    title: "Nmap Reconnaissance & Network Service Vulnerability Assessment",
+    category: "Ethical Hacking",
+    type: "Browser Terminal Lab",
+    difficulty: "Foundational",
+    duration: "35 mins",
+    xp: 300,
+    tools: ["Kali Linux", "Nmap", "NSE Scripts"],
+    description: "Perform stealth SYN scans, version detection, and vulnerability script scanning against a segmented enterprise subnet to generate a comprehensive asset inventory.",
+    activeUsers: 820
+  },
+  {
+    id: "lab-4",
+    title: "Memory Forensics: Extracting Injected DLLs with Volatility 3",
+    category: "Digital Forensics",
+    type: "Forensic Investigation",
+    difficulty: "Advanced",
+    duration: "60 mins",
+    xp: 600,
+    tools: ["Volatility 3", "Ghidra", "YARA"],
+    description: "Analyze a 16GB Windows memory dump from an infected workstation. Identify process hollowing, extract hidden shellcode, and extract threat actor IOCs.",
+    activeUsers: 215
+  },
+  {
+    id: "lab-5",
+    title: "Kubernetes Cluster Hardening & Runtime Threat Detection with Falco",
+    category: "DevSecOps",
+    type: "Cloud Sandbox",
+    difficulty: "Advanced",
+    duration: "50 mins",
+    xp: 500,
+    tools: ["kubectl", "Falco", "Trivy", "Docker"],
+    description: "Enforce Pod Security Standards, remediate vulnerable base container images, and write custom Falco alerting rules to stop container escape attempts in real time.",
+    activeUsers: 189
+  },
+  {
+    id: "lab-6",
+    title: "AI Red Teaming: Jailbreaking an LLM Customer Service Bot",
+    category: "AI Security",
+    type: "AI Sandbox Challenge",
+    difficulty: "Intermediate",
+    duration: "40 mins",
+    xp: 400,
+    tools: ["Python", "OpenAI API Simulator", "OWASP LLM01"],
+    description: "Craft adversarial system prompts to circumvent content safety filters, leak hidden system prompts, and force the model into executing unauthorized tool calls.",
+    activeUsers: 430
   }
 ];
 

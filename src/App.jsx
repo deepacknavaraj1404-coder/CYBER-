@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import TrustedLogos from './components/TrustedLogos';
-import ValuePillars from './components/ValuePillars';
-import InteractiveLabDemo from './components/InteractiveLabDemo';
+import ExploreTopics from './components/ExploreTopics';
 import CourseCatalog from './components/CourseCatalog';
+import LearnAndPractice from './components/LearnAndPractice';
 import CareerPaths from './components/CareerPaths';
 import PentestPathway from './components/PentestPathway';
+import InteractiveLabDemo from './components/InteractiveLabDemo';
 import EnterpriseSection from './components/EnterpriseSection';
 import CertificationSection from './components/CertificationSection';
 import Testimonials from './components/Testimonials';
@@ -55,7 +55,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
       
-      {/* Navigation Bar */}
+      {/* Navigation Bar with GeeksforGeeks-style topic sub-bar */}
       <Navbar 
         onOpenAuth={handleOpenAuth}
         onOpenSearch={() => setSearchModalOpen(true)}
@@ -63,7 +63,7 @@ export default function App() {
 
       {/* Main Page Sections */}
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* 1. Hero Section: "Master Cybersecurity. Build Real-World Skills." */}
         <Hero 
           onOpenAuth={handleOpenAuth} 
           onOpenLab={() => {
@@ -72,43 +72,48 @@ export default function App() {
           }}
         />
 
-        {/* Enterprise & Gov Trusted Logos */}
-        <TrustedLogos />
+        {/* 2. Explore Cybersecurity (12 Core Domains) */}
+        <ExploreTopics 
+          onSelectCategory={(catId) => {
+            const el = document.getElementById('courses');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
-        {/* Core Value Pillars / Differentiators */}
-        <ValuePillars />
-
-        {/* Live Virtual Lab Sandbox Interactive Simulation */}
-        <InteractiveLabDemo onOpenAuth={handleOpenAuth} />
-
-        {/* Comprehensive Threat-Informed Course & Lab Catalog */}
+        {/* 3. Professional Course Marketplace Cards with Video Previews */}
         <CourseCatalog 
           onSelectCourse={(course) => setSelectedCourse(course)}
           onOpenAuth={handleOpenAuth}
         />
 
-        {/* Role-Aligned Career Pathways */}
+        {/* 4. Dedicated LEARN & PRACTICE Section (Tutorials, Guides, Hands-On Labs, CTFs) */}
+        <LearnAndPractice onOpenAuth={handleOpenAuth} />
+
+        {/* 5. Guided Career Pathways (SOC Analyst, Pentest, Cloud Security, AI Security Engineer) */}
         <CareerPaths onOpenAuth={handleOpenAuth} />
 
-        {/* Penetration Tester / Offensive Specialist Pathway */}
+        {/* 6. Penetration Tester / Offensive Specialist Pathway Showcase */}
         <PentestPathway onOpenAuth={handleOpenAuth} />
 
-        {/* Cybrary for Enterprise & Teams + ROI Calculator */}
+        {/* 7. Live Virtual Lab Sandbox Interactive Simulation */}
+        <InteractiveLabDemo onOpenAuth={handleOpenAuth} />
+
+        {/* 8. Cybrary for Enterprise & Teams + ROI Calculator */}
         <EnterpriseSection onOpenAuth={handleOpenAuth} />
 
-        {/* Official Certification Prep Tracks */}
+        {/* 9. Official Certification Prep Tracks */}
         <CertificationSection onOpenAuth={handleOpenAuth} />
 
-        {/* Practitioner & Leader Testimonials */}
+        {/* 10. Practitioner & Leader Testimonials */}
         <Testimonials />
 
-        {/* Value Pricing Tiers */}
+        {/* 11. Value Pricing Tiers */}
         <PricingSection onOpenAuth={handleOpenAuth} />
 
-        {/* Frequently Asked Questions */}
+        {/* 12. Frequently Asked Questions */}
         <FAQ />
 
-        {/* Final Conversion Call To Action Banner */}
+        {/* 13. Final Conversion Call To Action Banner */}
         <CtaBanner onOpenAuth={handleOpenAuth} />
       </main>
 
@@ -138,4 +143,3 @@ export default function App() {
     </div>
   );
 }
-

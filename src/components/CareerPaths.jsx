@@ -26,7 +26,8 @@ function extractYouTubeId(url) {
 const FALLBACK_THUMBNAILS = {
   'soc-analyst': socIllustration,
   'penetration-tester': pentestIllustration,
-  'cloud-security-engineer': socIllustration
+  'cloud-security-engineer': socIllustration,
+  'ai-security-engineer': pentestIllustration
 };
 
 export default function CareerPaths({ onOpenAuth }) {
@@ -54,8 +55,8 @@ export default function CareerPaths({ onOpenAuth }) {
           </p>
         </div>
 
-        {/* Responsive Grid of Course Cards (Desktop: 3 cols, Tablet: 2 cols, Mobile: 1 col) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        {/* Responsive Grid of Course Cards (Desktop: 4 cols, Tablet: 2 cols, Mobile: 1 col) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
           {CAREER_PATHS.map((course) => {
             const videoId = extractYouTubeId(course.videoUrl);
             const thumbnailUrl = videoId 

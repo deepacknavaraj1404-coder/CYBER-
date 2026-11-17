@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { 
   ArrowRight, 
+  Search, 
+  Terminal, 
+  ShieldCheck, 
+  BookOpen, 
+  Cpu, 
   CheckCircle2, 
   Clock, 
   Copy, 
-  ChevronRight
+  Sparkles,
+  Play
 } from 'lucide-react';
 import { HERO_STATS } from '../data/cybraryData';
 
-export default function Hero({ onOpenAuth }) {
+const POPULAR_SEARCHES = [
+  'Splunk',
+  'Wireshark',
+  'Nmap',
+  'OWASP Top 10',
+  'Metasploit',
+  'Active Directory',
+  'Docker Security'
+];
+
+export default function Hero({ onOpenAuth, onOpenLab }) {
+  const [searchQuery, setSearchQuery] = useState('');
   const [copied, setCopied] = useState(false);
   
   const [terminalHistory, setTerminalHistory] = useState([
@@ -97,107 +114,166 @@ PORT     STATE SERVICE       VERSION
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    const coursesEl = document.getElementById('courses');
+    if (coursesEl) {
+      coursesEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    const coursesEl = document.getElementById('courses');
+    if (coursesEl) {
+      coursesEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 bg-gradient-to-b from-emerald-50/50 via-white to-slate-50 border-b border-slate-200">
+    <section className="relative pt-10 pb-16 md:pt-14 md:pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Hero Header */}
         <div className="text-center max-w-4xl mx-auto space-y-5">
           
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 shadow-2xs">
+          {/* GeeksforGeeks-style Category Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-800">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
             <span className="font-bold tracking-wide uppercase text-[11px] font-mono">
-              Cybersecurity Workforce Development
+              CYBRARY DEFENSE ACADEMY
             </span>
             <span className="text-emerald-300">|</span>
-            <span className="text-emerald-700 font-medium">1,250+ Hands-On Cloud Labs</span>
+            <span className="text-emerald-700 font-medium">1,250+ Hands-On Labs & Tutorials</span>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.14]">
-            Build Cybersecurity Skills That <br className="hidden sm:inline" />
-            <span className="text-emerald-600">
-              Actually Matter in the Real World.
-            </span>
+          {/* Target Headline */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]">
+            Master Cybersecurity. <br className="hidden sm:inline" />
+            <span className="text-emerald-600">Build Real-World Skills.</span>
           </h1>
 
-          {/* Subtitle */}
+          {/* Target Description */}
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto font-normal">
-            Whether you are breaking into cybersecurity or upskilling your enterprise SOC, Cybrary delivers browser-based virtual labs, role-aligned career pathways, and certification prep designed by industry practitioners.
+            Learn cybersecurity through structured tutorials, hands-on labs, practical projects and industry-aligned career pathways.
           </p>
 
-          {/* Call to Action Buttons */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <button 
-              onClick={() => onOpenAuth('signup')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-all duration-150 transform hover:-translate-y-0.5 active:translate-y-0"
-            >
-              <span>Start 7-Day Free Trial</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          {/* GeeksforGeeks-style Prominent Learning Search Bar */}
+          <div className="pt-2 max-w-2xl mx-auto">
+            <form onSubmit={handleSearchSubmit} className="relative flex items-center shadow-sm">
+              <div className="absolute left-4 text-slate-400">
+                <Search className="w-5 h-5" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="What do you want to learn today? (e.g. Splunk, Nmap, Active Directory...)"
+                className="w-full pl-12 pr-32 py-3.5 text-sm bg-white border-2 border-slate-200 focus:border-emerald-600 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none transition-colors"
+              />
+              <button
+                type="submit"
+                className="absolute right-2 px-5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-md transition-colors"
+              >
+                Search
+              </button>
+            </form>
 
-            <a 
-              href="#enterprise"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs transition-all duration-150"
-            >
-              <span>Explore Cybrary for Teams</span>
-              <ChevronRight className="w-4 h-4 text-slate-500" />
-            </a>
+            {/* Popular Search Suggestions */}
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 text-xs">
+              <span className="text-slate-500 font-medium mr-1 text-[11px]">Popular searches:</span>
+              {POPULAR_SEARCHES.map((item, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSuggestionClick(item)}
+                  className="px-2.5 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200 text-slate-600 text-xs font-medium transition-colors"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Micro Trust Points */}
-          <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-500 pt-1 font-mono">
+          {/* Call to Action Buttons */}
+          <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a 
+              href="#courses"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors"
+            >
+              <span>Explore Courses & Labs</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+
+            <a 
+              href="#practice-section"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs transition-colors"
+            >
+              <Terminal className="w-4 h-4 text-emerald-600" />
+              <span>Practice in Browser Labs</span>
+            </a>
+
+            <button 
+              onClick={() => onOpenAuth('signup')}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-lg text-sm font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100/70 border border-emerald-200 transition-colors"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Start Free Trial</span>
+            </button>
+          </div>
+
+          {/* Micro Trust Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-500 pt-1">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> No credit card required
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> 100% Browser-based VM labs
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> 100% browser-based sandbox
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> NIST NICE & MITRE ATT&CK® aligned
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Aligned to NIST NICE & MITRE ATT&CK®
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Real CVE zero-day challenges
             </span>
           </div>
 
         </div>
 
-        {/* Clean, Light-Themed Cloud Lab Workspace */}
-        <div className="mt-12 max-w-5xl mx-auto">
-          <div className="rounded-2xl bg-white border border-slate-200 shadow-lg overflow-hidden">
+        {/* Clean, Light-Themed Cloud Lab Workspace Preview */}
+        <div className="mt-10 max-w-5xl mx-auto">
+          <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
             
-            {/* Window Header Bar - Light Slate */}
-            <div className="bg-slate-100/90 px-4 py-3 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+            {/* Window Header Bar */}
+            <div className="bg-slate-50 px-4 py-2.5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
               
               <div className="flex items-center space-x-3">
                 <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 rounded-full bg-rose-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-400"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
                 </div>
                 <div className="h-4 w-[1px] bg-slate-300"></div>
                 <div className="flex items-center space-x-2 font-mono text-slate-800 text-xs">
-                  <span className="font-bold text-emerald-700">LAB #842:</span>
-                  <span className="text-slate-700 font-medium">Incident Triage & Web Shell Remediation</span>
+                  <span className="font-bold text-emerald-700">HANDS-ON LAB:</span>
+                  <span className="text-slate-700 font-medium">Apache Path Traversal (CVE-2021-41773) Exploitation & Patching</span>
                 </div>
               </div>
 
               {/* Status Pills */}
               <div className="flex items-center space-x-2.5 font-mono text-[11px]">
-                <div className="hidden sm:flex items-center space-x-1.5 bg-white text-slate-700 px-2.5 py-1 rounded-md border border-slate-200 shadow-2xs">
+                <div className="hidden sm:flex items-center space-x-1.5 bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 shadow-2xs">
                   <Clock className="w-3.5 h-3.5 text-amber-500" />
                   <span>Timer: 00:46:18</span>
                 </div>
                 
                 <button 
                   onClick={handleCopyIP}
-                  className="flex items-center space-x-1 bg-white hover:bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200 text-slate-700 shadow-2xs transition-colors"
+                  className="flex items-center space-x-1 bg-white hover:bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-slate-700 shadow-2xs transition-colors"
                   title="Copy target IP"
                 >
                   <Copy className="w-3 h-3 text-emerald-600" />
                   <span>{copied ? 'Copied 10.10.14.8' : 'IP: 10.10.14.8'}</span>
                 </button>
 
-                <div className="flex items-center space-x-1 text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                <div className="flex items-center space-x-1 text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
                   <span>VM ONLINE</span>
                 </div>
@@ -209,13 +285,13 @@ PORT     STATE SERVICE       VERSION
             <div className="grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-slate-200">
               
               {/* Left Column: Interactive Lab Guide */}
-              <div className="md:col-span-5 bg-slate-50/70 p-5 space-y-4 text-xs font-sans">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div className="md:col-span-5 bg-slate-50/70 p-4 space-y-3.5 text-xs font-sans">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
                   <div>
-                    <span className="text-[11px] font-mono text-emerald-700 font-bold uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-emerald-700 font-bold uppercase tracking-wider">
                       Interactive Lab Guide
                     </span>
-                    <h4 className="text-sm font-bold text-slate-900 mt-0.5">Apache Path Traversal (CVE-2021-41773)</h4>
+                    <h4 className="text-xs font-bold text-slate-900 mt-0.5">Objective: Verify Vulnerability & Enforce Patch</h4>
                   </div>
                   <span className="text-[11px] font-mono bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-700 font-semibold shadow-2xs">
                     2/3 Done
@@ -223,136 +299,129 @@ PORT     STATE SERVICE       VERSION
                 </div>
 
                 {/* Tasks List */}
-                <div className="space-y-2.5">
-                  <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1">
+                <div className="space-y-2">
+                  <div className="p-2.5 rounded-lg bg-white border border-slate-200 shadow-2xs space-y-1">
                     <div className="flex items-center justify-between font-semibold text-slate-800">
                       <span className="flex items-center gap-1.5 text-emerald-700">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Task 1: Recon & Port Fingerprint
                       </span>
-                      <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">PASSED</span>
+                      <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-100">PASSED</span>
                     </div>
                     <p className="text-slate-500 text-[11px] leading-relaxed">
                       Nmap scan identified Apache 2.4.49 on port 80 and open SMB port 445.
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1">
+                  <div className="p-2.5 rounded-lg bg-white border border-slate-200 shadow-2xs space-y-1">
                     <div className="flex items-center justify-between font-semibold text-slate-800">
                       <span className="flex items-center gap-1.5 text-emerald-700">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Task 2: Validate Path Traversal
                       </span>
-                      <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">PASSED</span>
+                      <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-100">PASSED</span>
                     </div>
                     <p className="text-slate-500 text-[11px] leading-relaxed">
                       Target vulnerable to encoded dot-dot-slash payload in <code className="text-slate-700 font-mono bg-slate-100 px-1 py-0.5 rounded">/icons/.%2e/</code>.
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
-                    <div className="flex items-center justify-between font-bold text-slate-900">
-                      <span className="flex items-center gap-1.5 text-emerald-800">
-                        <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-                        Task 3: Apply Firewall Isolation
+                  <div className="p-2.5 rounded-lg bg-white border-2 border-emerald-300 bg-emerald-50/20 shadow-2xs space-y-1">
+                    <div className="flex items-center justify-between font-semibold text-slate-900">
+                      <span className="flex items-center gap-1.5 text-emerald-800 font-bold">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Task 3: Apply Firewall Mitigation Rule
                       </span>
-                      <span className="text-[10px] font-mono text-emerald-800 bg-white px-1.5 py-0.5 rounded border border-emerald-200 font-bold">ACTIVE</span>
+                      <span className="text-[10px] font-mono text-amber-800 font-bold bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">IN PROGRESS</span>
                     </div>
-                    <p className="text-slate-700 text-[11px] leading-relaxed">
-                      Block attacker IP <code className="text-emerald-800 font-mono font-semibold">192.168.1.100</code> using iptables or enforce WAF rule #41773.
+                    <p className="text-slate-600 text-[11px] leading-relaxed">
+                      Execute iptables command or patch Apache configuration to block malicious traversal paths.
                     </p>
-                    <button
-                      onClick={() => handleCommand('sudo iptables -A INPUT -s 192.168.1.100 -j DROP && echo "[✓] Rule Active"')}
-                      className="mt-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-850 underline flex items-center gap-1"
-                    >
-                      Run mitigation command in terminal →
-                    </button>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-mono">
-                  <span>Host: Ubuntu 22.04 LTS</span>
-                  <span>RAM: 4 GB Allocated</span>
+                {/* Quick Hint Chips */}
+                <div className="pt-1">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-1.5">
+                    Quick Commands:
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {sampleCommands.map((sc, i) => (
+                      <button
+                        key={i}
+                        onClick={() => handleCommand(sc.cmd)}
+                        className="text-[10px] font-mono bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-2 py-1 rounded transition-colors"
+                      >
+                        $ {sc.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
+
               </div>
 
-              {/* Right Column: Clean Light macOS-style Terminal */}
-              <div className="md:col-span-7 bg-white p-5 font-mono text-xs flex flex-col justify-between min-h-[340px]">
-                
-                {/* Console Output Area */}
-                <div className="space-y-3 overflow-y-auto max-h-64 pr-2">
-                  <div className="text-slate-400 text-[11px] flex items-center justify-between border-b border-slate-100 pb-1">
-                    <span>Cybrary Cloud Lab Terminal • ID: #CYB-7192</span>
-                    <span className="text-emerald-700 font-medium">● Connected (us-east)</span>
+              {/* Right Column: Live Terminal */}
+              <div className="md:col-span-7 bg-slate-950 p-4 font-mono text-xs flex flex-col justify-between h-[360px] overflow-hidden">
+                <div className="overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-slate-800">
+                  <div className="text-slate-400 text-[11px] pb-1 border-b border-slate-800">
+                    Cybrary Cloud Hypervisor (Ubuntu 24.04 LTS / Kali v2026.3) — Session ID #CY-842
                   </div>
-
+                  
                   {terminalHistory.map((item, idx) => (
-                    <div key={idx} className="space-y-1">
+                    <div key={idx} className="space-y-0.5 leading-relaxed">
                       {item.type === 'cmd' && (
-                        <div className="text-emerald-700 font-semibold flex items-center gap-1.5">
-                          <span className="text-slate-400 font-normal">{item.prompt}</span>
-                          <span className="font-bold text-slate-900">{item.text}</span>
+                        <div className="flex items-center space-x-2 text-emerald-400">
+                          <span className="text-emerald-500 font-bold">{item.prompt}</span>
+                          <span className="text-slate-100">{item.text}</span>
                         </div>
                       )}
                       {item.type === 'output' && (
-                        <pre className="text-slate-700 whitespace-pre-wrap text-[11px] leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-200 font-mono">
+                        <pre className="text-slate-300 text-[11px] whitespace-pre-wrap font-mono pl-2 border-l border-slate-800">
                           {item.text}
                         </pre>
                       )}
                       {item.type === 'vuln' && (
-                        <div className="text-amber-800 bg-amber-50 p-2.5 rounded-xl border border-amber-200 text-[11px] font-medium">
+                        <div className="text-amber-400 bg-amber-950/40 p-2 rounded border border-amber-800/60 text-[11px] font-semibold">
                           {item.text}
                         </div>
                       )}
                       {item.type === 'success' && (
-                        <div className="text-emerald-800 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200 text-[11px] font-medium">
+                        <div className="text-emerald-400 bg-emerald-950/40 p-2 rounded border border-emerald-800/60 text-[11px] font-semibold">
                           {item.text}
                         </div>
                       )}
                     </div>
                   ))}
-
+                  
                   {isRunning && (
-                    <div className="text-slate-500 flex items-center gap-2 text-[11px]">
-                      <span className="animate-spin text-emerald-600">●</span> Executing command against target hypervisor...
+                    <div className="text-slate-400 text-xs flex items-center space-x-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                      <span>Processing payload execution on hypervisor...</span>
                     </div>
                   )}
                 </div>
 
-                {/* Bottom Controls */}
-                <div className="mt-4 pt-3 border-t border-slate-200 space-y-2.5">
-                  <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                    <span className="text-slate-500 font-sans font-medium">Quick scripts:</span>
-                    {sampleCommands.map((sample, i) => (
-                      <button
-                        key={i}
-                        onClick={() => handleCommand(sample.cmd)}
-                        className="px-2.5 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 transition-colors font-medium shadow-2xs"
-                      >
-                        {sample.label}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Manual Input Form */}
-                  <form 
-                    onSubmit={(e) => { e.preventDefault(); handleCommand(userInput); }}
-                    className="flex items-center gap-2"
+                {/* Input Prompt */}
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleCommand(userInput);
+                  }}
+                  className="mt-3 pt-2 border-t border-slate-800 flex items-center space-x-2 text-slate-100"
+                >
+                  <span className="text-emerald-400 font-bold shrink-0">kali@cybrary:~$</span>
+                  <input 
+                    type="text"
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    placeholder="Type 'nmap scan', 'exploit check', 'splunk query', or 'mitigate'..."
+                    className="w-full bg-transparent text-slate-100 placeholder-slate-600 focus:outline-none text-xs font-mono"
+                  />
+                  <button 
+                    type="submit" 
+                    className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold rounded"
                   >
-                    <span className="text-slate-400 font-mono hidden sm:inline text-xs">kali@cybrary:~$</span>
-                    <input 
-                      type="text"
-                      value={userInput}
-                      onChange={(e) => setUserInput(e.target.value)}
-                      placeholder="Type a cyber command (nmap, exploit check, splunk query, mitigate)..."
-                      className="flex-1 bg-slate-50 border border-slate-300 focus:border-emerald-500 rounded-lg px-3 py-1.5 text-slate-900 text-xs outline-none transition-colors"
-                    />
-                    <button 
-                      type="submit"
-                      className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs transition-colors shadow-2xs"
-                    >
-                      Run
-                    </button>
-                  </form>
-                </div>
+                    Run
+                  </button>
+                </form>
 
               </div>
 
@@ -361,23 +430,21 @@ PORT     STATE SERVICE       VERSION
           </div>
         </div>
 
-        {/* Pleasant Metrics Row */}
-        <div className="mt-14 pt-8 border-t border-slate-200">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {HERO_STATS.map((stat, idx) => (
-              <div key={idx} className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs hover:shadow-xs transition-shadow">
-                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm font-semibold text-slate-800 mt-1">
-                  {stat.label}
-                </div>
-                <div className="text-[11px] text-emerald-700 font-medium mt-0.5">
-                  {stat.detail}
-                </div>
+        {/* Global Learning Platform Stats */}
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {HERO_STATS.map((stat, idx) => (
+            <div key={idx} className="bg-white border border-slate-200 rounded-lg p-4 text-center shadow-2xs">
+              <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono">
+                {stat.value}
               </div>
-            ))}
-          </div>
+              <div className="text-xs font-bold text-emerald-700 mt-0.5">
+                {stat.label}
+              </div>
+              <div className="text-[11px] text-slate-500 mt-0.5">
+                {stat.detail}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
