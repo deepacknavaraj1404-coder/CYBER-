@@ -6,6 +6,7 @@ import ValuePillars from './components/ValuePillars';
 import InteractiveLabDemo from './components/InteractiveLabDemo';
 import CourseCatalog from './components/CourseCatalog';
 import CareerPaths from './components/CareerPaths';
+import PentestPathway from './components/PentestPathway';
 import EnterpriseSection from './components/EnterpriseSection';
 import CertificationSection from './components/CertificationSection';
 import Testimonials from './components/Testimonials';
@@ -88,6 +89,9 @@ export default function App() {
 
         {/* Role-Aligned Career Pathways */}
         <CareerPaths onOpenAuth={handleOpenAuth} />
+
+        {/* Penetration Tester / Offensive Specialist Pathway */}
+        <PentestPathway onOpenAuth={handleOpenAuth} />
 
         {/* Cybrary for Enterprise & Teams + ROI Calculator */}
         <EnterpriseSection onOpenAuth={handleOpenAuth} />
