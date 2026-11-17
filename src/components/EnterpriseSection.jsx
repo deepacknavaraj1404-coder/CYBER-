@@ -22,13 +22,13 @@ export default function EnterpriseSection({ onOpenAuth }) {
     <section id="enterprise" className="py-20 bg-slate-50 border-b border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
-        {/* 2-Column Layout: Left = 4 Images in 2x2 Grid, Right = Section Heading, Description & Feature Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        {/* 2-Column Layout: Left (~35%) = Compact 2x2 Images, Right (~65%) = Heading, Description & Feature Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LEFT SIDE: 4 Images in clean 2-column x 2-row grid */}
-          <div className="lg:col-span-5 w-full">
-            <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
-              <div className="rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+          {/* LEFT COLUMN: 4 existing images in a compact 2x2 grid occupying ~35% width */}
+          <div className="lg:col-span-4 w-full">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 max-w-[360px] mx-auto lg:max-w-none">
+              <div className="rounded-xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
                 <img 
                   src={skillMatricesImg} 
                   alt="Workforce Skill Matrices" 
@@ -36,7 +36,7 @@ export default function EnterpriseSection({ onOpenAuth }) {
                   loading="lazy"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+              <div className="rounded-xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
                 <img 
                   src={cloudRangeImg} 
                   alt="Custom Cloud Range Days" 
@@ -44,7 +44,7 @@ export default function EnterpriseSection({ onOpenAuth }) {
                   loading="lazy"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+              <div className="rounded-xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
                 <img 
                   src={ssoLmsImg} 
                   alt="SSO & LMS Integration" 
@@ -52,7 +52,7 @@ export default function EnterpriseSection({ onOpenAuth }) {
                   loading="lazy"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
+              <div className="rounded-xl overflow-hidden border border-slate-200/90 bg-slate-900 shadow-sm hover:shadow-md transition-shadow">
                 <img 
                   src={mttrReductionImg} 
                   alt="42% MTTR Reduction" 
@@ -64,7 +64,7 @@ export default function EnterpriseSection({ onOpenAuth }) {
           </div>
 
           {/* RIGHT SIDE: Section Heading, Description, Feature Cards & CTA Buttons */}
-          <div className="lg:col-span-7 space-y-5">
+          <div className="lg:col-span-8 space-y-5">
             <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
               Cybrary for Enterprise & Government
             </span>
