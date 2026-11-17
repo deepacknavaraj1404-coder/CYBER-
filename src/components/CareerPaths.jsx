@@ -1,30 +1,48 @@
 import React, { useState } from 'react';
 import { CAREER_PATHS } from '../data/cybraryData';
 import {
+  Play,
+  Star,
+  User,
+  Clock,
+  ArrowRight,
   TrendingUp,
   DollarSign,
-  Clock,
-  ArrowRight
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2
 } from 'lucide-react';
 import socIllustration from '../assets/pathways/soc-analyst-illustration.jpg';
 import pentestIllustration from '../assets/pathways/pentest-illustration.jpg';
 
-const PATH_ILLUSTRATIONS = {
+// Helper to extract YouTube video ID from standard, youtu.be, shorts, and embed URLs
+export function extractYouTubeId(url) {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+  return match ? match[1] : null;
+}
+
+// Fallback images map by path ID
+const FALLBACK_THUMBNAILS = {
   'soc-analyst': socIllustration,
   'penetration-tester': pentestIllustration,
-  'cloud-security-engineer': socIllustration,
+  'cloud-security-engineer': socIllustration
 };
 
 export default function CareerPaths({ onOpenAuth }) {
-  const [selectedId, setSelectedId] = useState('soc-analyst');
-  const path = CAREER_PATHS.find(p => p.id === selectedId) || CAREER_PATHS[0];
+  const [playingVideoId, setPlayingVideoId] = useState(null);
+  const [expandedRoadmapId, setExpandedRoadmapId] = useState(null);
+
+  const toggleRoadmap = (id) => {
+    setExpandedRoadmapId(prev => prev === id ? null : id);
+  };
 
   return (
-    <section id="career-paths" className="py-20 bg-white border-b border-slate-200 relative">
+    <section id="career-paths" className="py-20 bg-slate-50 border-b border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
           <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
             NIST NICE Framework Aligned
           </span>
@@ -36,145 +54,209 @@ export default function CareerPaths({ onOpenAuth }) {
           </p>
         </div>
 
-        {/* Path Selector Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {CAREER_PATHS.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => setSelectedId(p.id)}
-              className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                selectedId === p.id
-                  ? 'bg-emerald-600 text-white font-bold shadow-xs'
-                  : 'bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200/80 border border-slate-200'
-              }`}
-            >
-              {p.role}
-            </button>
-          ))}
-        </div>
+        {/* Responsive Grid of Course Cards (Desktop: 3 cols, Tablet: 2 cols, Mobile: 1 col) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {CAREER_PATHS.map((course) => {
+            const videoId = extractYouTubeId(course.videoUrl);
+            const thumbnailUrl = videoId 
+              ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+              : (FALLBACK_THUMBNAILS[course.id] || socIllustration);
+            const isPlaying = playingVideoId === course.id && Boolean(videoId);
+            const isRoadmapOpen = expandedRoadmapId === course.id;
 
-        {/* ── Main Pathway Card: 2-Column Layout ── */}
-        <div className="rounded-2xl bg-slate-50 border border-slate-200 shadow-xs overflow-hidden">
-          <div className="flex flex-col lg:flex-row">
-
-            {/* LEFT COLUMN (42%) — Illustration */}
-            <div className="lg:w-[42%] shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex items-center justify-center p-6 sm:p-8 min-h-[260px] lg:min-h-0">
-              <div className="w-full h-full rounded-xl overflow-hidden bg-slate-50">
-                <img
-                  src={PATH_ILLUSTRATIONS[selectedId] || socIllustration}
-                  alt={`${path.role} illustration`}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN (58%) — Pathway Content */}
-            <div className="lg:w-[58%] flex flex-col p-6 sm:p-8 space-y-5">
-
-              {/* Top Row: Role label + Time-to-Finish stat */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  {/* Green Role Code Label */}
-                  <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 inline-block mb-2">
-                    NICE ROLE: {path.niceCode}
-                  </span>
-
-                  {/* Heading */}
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight tracking-tight">
-                    {path.role} Pathway
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed max-w-lg">
-                    {path.summary}
-                  </p>
-                </div>
-
-                {/* Time to Finish — top-right stat card */}
-                <div className="shrink-0 p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs text-right min-w-[130px] font-mono">
-                  <div className="text-[11px] text-slate-500 flex items-center justify-end gap-1 mb-0.5">
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
-                    Time to Finish
-                  </div>
-                  <div className="text-sm font-bold text-amber-700">
-                    {path.estTime.split('(')[0].trim()}
-                  </div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">Paced for working pros</div>
-                </div>
-              </div>
-
-              {/* Thin Divider */}
-              <hr className="border-slate-200" />
-
-              {/* 4-Phase Curriculum Roadmap */}
-              <div>
-                <h4 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-3">
-                  4-Phase Curriculum Roadmap:
-                </h4>
-
-                {/* Horizontally scrollable on small screens */}
-                <div className="overflow-x-auto pb-1 -mx-1">
-                  <div className="flex gap-3 min-w-max px-1 lg:grid lg:grid-cols-4 lg:min-w-0">
-                    {path.steps.map((st, i) => (
-                      <div
-                        key={i}
-                        className="w-44 lg:w-auto shrink-0 p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs hover:border-emerald-200 hover:shadow-sm transition-all duration-200"
+            return (
+              <div
+                key={course.id}
+                className="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+              >
+                {/* ── TOP: Video Player / Thumbnail with Play Button Overlay ── */}
+                <div className="relative aspect-video w-full bg-slate-950 overflow-hidden shrink-0">
+                  {isPlaying ? (
+                    <div className="relative w-full h-full">
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+                        title={course.title || course.role}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPlayingVideoId(null);
+                        }}
+                        className="absolute top-2 right-2 bg-slate-900/85 hover:bg-slate-900 text-white text-[11px] font-mono px-2 py-0.5 rounded shadow z-20 transition-colors"
+                        title="Close Video"
                       >
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-[11px] font-bold font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
-                            Phase {st.step}
-                          </span>
-                          <span className="text-[10px] font-mono text-slate-500 font-medium">
-                            {st.time}
-                          </span>
+                        ✕ Close
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      className="relative w-full h-full cursor-pointer group/thumb"
+                      onClick={() => {
+                        if (videoId) {
+                          setPlayingVideoId(course.id);
+                        }
+                      }}
+                    >
+                      <img
+                        src={thumbnailUrl}
+                        alt={course.title || course.role}
+                        className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = FALLBACK_THUMBNAILS[course.id] || socIllustration;
+                        }}
+                        loading="lazy"
+                      />
+                      
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 bg-black/30 group-hover/thumb:bg-black/20 transition-colors flex items-center justify-center">
+                        <div className="w-14 h-14 rounded-full bg-red-600/90 group-hover/thumb:bg-red-600 text-white flex items-center justify-center shadow-xl transition-all duration-300 group-hover/thumb:scale-110">
+                          <Play className="w-6 h-6 fill-white ml-0.5" />
                         </div>
-                        <h5 className="text-xs font-bold text-slate-900 mt-1.5 leading-snug">
-                          {st.name}
-                        </h5>
-                        <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
-                          {st.desc}
-                        </p>
                       </div>
-                    ))}
-                  </div>
+
+                      {/* Video Duration / Time Chip */}
+                      {course.estTime && (
+                        <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1 text-[10px] font-mono font-medium text-white bg-slate-900/85 backdrop-blur-xs px-2 py-0.5 rounded shadow-sm">
+                          <Clock className="w-3 h-3 text-amber-400" />
+                          <span>{course.estTime.split('(')[0].trim()}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
-              </div>
 
-              {/* Bottom Row: Core Competencies + Employers + Enroll CTA */}
-              <div className="pt-1 border-t border-slate-200">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-
-                  {/* Left: Core Competencies Tags */}
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[11px] font-semibold text-slate-700 block mb-2 font-mono uppercase tracking-wide">
-                      Core Competencies Verified:
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {path.skillsLearned.map((sk, idx) => (
-                        <span
-                          key={idx}
-                          className="bg-emerald-50 text-emerald-800 text-[11px] px-2.5 py-1 rounded-lg border border-emerald-200 font-medium"
-                        >
-                          {sk}
+                {/* ── MIDDLE: Course Information ── */}
+                <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
+                  
+                  {/* Category, Level & NICE Role */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-mono font-bold uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                        {course.category || "Cyber Defense"}
+                      </span>
+                      {course.level && (
+                        <span className="font-mono text-[11px] text-slate-500 font-medium">
+                          {course.level}
                         </span>
-                      ))}
+                      )}
                     </div>
+
+                    {/* Course Title */}
+                    <h3 className="text-lg font-bold text-slate-900 tracking-tight leading-snug line-clamp-2">
+                      {course.title || `${course.role} Pathway`}
+                    </h3>
+
+                    {/* Instructor */}
+                    {course.instructor && (
+                      <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                        <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span>
+                          Instructor: <strong className="text-slate-800 font-semibold">{course.instructor}</strong>
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Short Description */}
+                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                      {course.summary}
+                    </p>
                   </div>
 
-                  {/* Right: Target Employers + Enroll Button */}
-                  <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
-                    <div className="text-right">
-                      <span className="text-[11px] font-semibold text-slate-700 block mb-0.5 font-mono uppercase tracking-wide">
-                        Target Employers:
-                      </span>
-                      <span className="text-[11px] text-slate-500">
-                        {path.targetEmployers.join(' • ')}
+                  {/* Rating, Reviews & Salary Stats */}
+                  <div className="space-y-2 pt-2 border-t border-slate-100">
+                    <div className="flex items-center justify-between text-xs">
+                      {course.rating && (
+                        <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1 text-amber-500">
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            <span className="font-bold text-slate-800">{course.rating}</span>
+                          </div>
+                          {course.reviewsCount && (
+                            <span className="text-[11px] text-slate-400 font-mono">
+                              ({course.reviewsCount.toLocaleString()})
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {course.avgSalary && (
+                        <div className="flex items-center gap-1 text-[11px] font-mono text-emerald-700 font-bold">
+                          <DollarSign className="w-3 h-3 text-emerald-600" />
+                          <span>Avg {course.avgSalary}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 4-Phase Roadmap Toggle */}
+                    {course.steps && course.steps.length > 0 && (
+                      <button
+                        onClick={() => toggleRoadmap(course.id)}
+                        className="w-full flex items-center justify-between px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-700 transition-colors"
+                      >
+                        <span className="font-semibold">
+                          {isRoadmapOpen ? "Hide Curriculum Roadmap" : `View 4-Phase Roadmap (${course.steps.length} Phases)`}
+                        </span>
+                        {isRoadmapOpen ? (
+                          <ChevronUp className="w-3.5 h-3.5 text-slate-500" />
+                        ) : (
+                          <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                        )}
+                      </button>
+                    )}
+
+                    {/* Expanded 4-Phase Roadmap Details */}
+                    {isRoadmapOpen && course.steps && (
+                      <div className="pt-2 pb-1 space-y-2 text-xs border-t border-slate-100 animate-fadeIn">
+                        <div className="space-y-1.5">
+                          {course.steps.map((st, i) => (
+                            <div key={i} className="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                              <div className="flex items-center justify-between text-[10px] font-mono mb-0.5">
+                                <span className="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">
+                                  Phase {st.step}
+                                </span>
+                                <span className="text-slate-400">{st.time}</span>
+                              </div>
+                              <div className="font-bold text-slate-800 text-[11px]">{st.name}</div>
+                              <p className="text-[10px] text-slate-500 leading-tight mt-0.5">{st.desc}</p>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Competencies */}
+                        {course.skillsLearned && (
+                          <div className="pt-1">
+                            <span className="text-[10px] font-mono uppercase font-bold text-slate-500 block mb-1">
+                              Core Competencies:
+                            </span>
+                            <div className="flex flex-wrap gap-1">
+                              {course.skillsLearned.map((sk, idx) => (
+                                <span key={idx} className="bg-emerald-50 text-emerald-800 text-[10px] px-2 py-0.5 rounded border border-emerald-200">
+                                  {sk}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* ── BOTTOM: Course Price & Enroll CTA ── */}
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div>
+                      <span className="text-[10px] font-mono text-slate-400 block uppercase">Tuition</span>
+                      <span className="text-xs font-bold text-emerald-700 font-mono">
+                        {course.price || "Free with Membership"}
                       </span>
                     </div>
+
                     <button
                       onClick={() => onOpenAuth('signup')}
-                      className="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors flex items-center gap-1.5 whitespace-nowrap shadow-xs"
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors flex items-center gap-1.5 shadow-2xs whitespace-nowrap"
                     >
                       <span>Enroll in Pathway</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -183,13 +265,9 @@ export default function CareerPaths({ onOpenAuth }) {
 
                 </div>
               </div>
-
-            </div>
-            {/* END RIGHT COLUMN */}
-
-          </div>
+            );
+          })}
         </div>
-        {/* END Main Card */}
 
       </div>
     </section>
