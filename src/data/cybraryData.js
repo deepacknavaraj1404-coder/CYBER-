@@ -1,4 +1,7 @@
 // Authentic enterprise SVGs and curated cybersecurity dataset matching real industry standards
+import arjunImg from '../assets/testimonials/arjun-kumar.jpg';
+import priyaImg from '../assets/testimonials/priya-sharma.jpg';
+import rahulImg from '../assets/testimonials/rahul-nair.jpg';
 
 export const COMPANY_LOGOS = [
   {
@@ -340,7 +343,7 @@ export const TESTIMONIALS = [
     location: "Chennai, India",
     tag: "SOC Analyst Training",
     tagIcon: "Shield",
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop&q=80",
+    avatar: arjunImg,
     quote: "I joined Cybrary because I wanted to get into cybersecurity but honestly didn't know where to start. The hands-on labs made things much easier to understand. I can now practice what I learn instead of just watching videos."
   },
   {
@@ -349,7 +352,7 @@ export const TESTIMONIALS = [
     location: "Bengaluru, India",
     tag: "Ethical Hacking & Security",
     tagIcon: "GraduationCap",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
+    avatar: priyaImg,
     quote: "What I liked most was that everything wasn't just theory. I got to work with real tools, understand security issues and try solving them myself. It gave me much more confidence when applying for cybersecurity roles."
   },
   {
@@ -358,7 +361,7 @@ export const TESTIMONIALS = [
     location: "Kochi, India",
     tag: "Penetration Testing",
     tagIcon: "Laptop",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
+    avatar: rahulImg,
     quote: "I already knew a little about networking, but I struggled to connect everything practically. The labs helped me understand how attacks actually work and how to identify vulnerabilities. Definitely a better way to learn."
   }
 ];

@@ -58,7 +58,9 @@ export default function Testimonials() {
                 <img 
                   src={item.avatar} 
                   alt={item.name} 
-                  className="w-12 h-12 rounded-full object-cover border border-slate-200 shadow-xs shrink-0"
+                  width="64"
+                  height="64"
+                  className="w-16 h-16 min-w-[64px] min-h-[64px] rounded-full object-cover object-top border border-slate-200 shadow-xs shrink-0"
                 />
                 <div className="min-w-0 flex-1">
                   {/* Bold Author Name with Green Verified Check Icon */}
