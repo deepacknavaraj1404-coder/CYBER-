@@ -337,7 +337,7 @@ export const CAREER_PATHS = [
     rating: 4.92,
     reviewsCount: 1420,
     price: "Free with Membership",
-    videoUrl: "https://www.youtube.com/watch?v=S_35FkG9kI8",
+    videoUrl: "https://www.youtube.com/watch?v=upQHB3lmlxw",
     avgSalary: "$154,200",
     salarySource: "Indeed Tech Salary Report 2026",
     growth: "+39% 10-Yr Projected Growth",
