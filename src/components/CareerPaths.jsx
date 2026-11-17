@@ -7,6 +7,13 @@ import {
   ArrowRight
 } from 'lucide-react';
 import socIllustration from '../assets/pathways/soc-analyst-illustration.jpg';
+import pentestIllustration from '../assets/pathways/pentest-illustration.jpg';
+
+const PATH_ILLUSTRATIONS = {
+  'soc-analyst': socIllustration,
+  'penetration-tester': pentestIllustration,
+  'cloud-security-engineer': socIllustration,
+};
 
 export default function CareerPaths({ onOpenAuth }) {
   const [selectedId, setSelectedId] = useState('soc-analyst');
@@ -54,7 +61,7 @@ export default function CareerPaths({ onOpenAuth }) {
             <div className="lg:w-[42%] shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex items-center justify-center p-6 sm:p-8 min-h-[260px] lg:min-h-0">
               <div className="w-full h-full rounded-xl overflow-hidden bg-slate-50">
                 <img
-                  src={socIllustration}
+                  src={PATH_ILLUSTRATIONS[selectedId] || socIllustration}
                   alt={`${path.role} illustration`}
                   className="w-full h-full object-contain"
                   loading="lazy"
