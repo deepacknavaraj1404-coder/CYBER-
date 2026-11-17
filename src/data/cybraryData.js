@@ -335,34 +335,31 @@ export const CERTIFICATIONS = [
 
 export const TESTIMONIALS = [
   {
-    name: "Rachel Simmons",
-    currentRole: "Lead Incident Responder",
-    previousRole: "Former IT Help Desk Technician",
-    company: "Palo Alto Networks",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&auto=format&fit=crop&q=80",
-    quote: "I was stuck answering password reset tickets for two years. Cybrary's SOC Analyst path gave me actual browser terminals running Splunk and Wireshark. During my interview, when they asked how I would investigate a suspicious PowerShell invocation, I described the exact steps I practiced in Cybrary's labs. That landed me a $92,000 offer.",
-    verifiedBadge: "Verified Career Switcher",
-    certAchieved: "CompTIA Security+ & CySA+"
+    name: "Arjun Kumar",
+    role: "Junior Security Analyst",
+    location: "Chennai, India",
+    tag: "SOC Analyst Training",
+    tagIcon: "Shield",
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&auto=format&fit=crop&q=80",
+    quote: "I joined Cybrary because I wanted to get into cybersecurity but honestly didn't know where to start. The hands-on labs made things much easier to understand. I can now practice what I learn instead of just watching videos."
   },
   {
-    name: "Marcus Vance",
-    currentRole: "Director of Information Security",
-    previousRole: "Senior Infrastructure Engineer",
-    company: "Apex Financial Group",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&auto=format&fit=crop&q=80",
-    quote: "We enrolled our entire 32-person security operations center into Cybrary for Teams. The biggest ROI was the CVE simulation range: when the MOVEit vulnerability broke, Cybrary had a hands-on replication lab available in 48 hours. Our team practiced hunting the exact IoCs before our own systems were targeted.",
-    verifiedBadge: "Enterprise Team Lead",
-    certAchieved: "Enterprise Deployment (32 Seats)"
+    name: "Priya Sharma",
+    role: "Cybersecurity Student",
+    location: "Bengaluru, India",
+    tag: "Ethical Hacking & Security",
+    tagIcon: "GraduationCap",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80",
+    quote: "What I liked most was that everything wasn't just theory. I got to work with real tools, understand security issues and try solving them myself. It gave me much more confidence when applying for cybersecurity roles."
   },
   {
-    name: "Amitabh Sen",
-    currentRole: "Senior Penetration Tester",
-    previousRole: "System Administrator",
-    company: "Booz Allen Hamilton",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&auto=format&fit=crop&q=80",
-    quote: "The Active Directory lab environments on Cybrary are second to none. Instead of theoretical lectures, you're running BloodHound queries, extracting Kerberos tickets, and understanding how defensive blue teams detect lateral movement. It directly helped me pass the OSCP on my first attempt.",
-    verifiedBadge: "Certified Practitioner",
-    certAchieved: "OSCP & CEH"
+    name: "Rahul Nair",
+    role: "Penetration Testing Associate",
+    location: "Kochi, India",
+    tag: "Penetration Testing",
+    tagIcon: "Laptop",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80",
+    quote: "I already knew a little about networking, but I struggled to connect everything practically. The labs helped me understand how attacks actually work and how to identify vulnerabilities. Definitely a better way to learn."
   }
 ];
 
