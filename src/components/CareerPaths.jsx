@@ -16,7 +16,7 @@ import socIllustration from '../assets/pathways/soc-analyst-illustration.jpg';
 import pentestIllustration from '../assets/pathways/pentest-illustration.jpg';
 
 // Helper to extract YouTube video ID from standard, youtu.be, shorts, and embed URLs
-export function extractYouTubeId(url) {
+function extractYouTubeId(url) {
   if (!url) return null;
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
   return match ? match[1] : null;
