@@ -1,21 +1,21 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/cybraryData';
-import { Star, CheckCircle2, Quote } from 'lucide-react';
+import { Star, CheckCircle2 } from 'lucide-react';
 
 export default function Testimonials() {
   return (
-    <section className="py-20 bg-[#070B14] relative">
+    <section className="py-20 bg-slate-50 border-b border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
-          <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+          <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
             Practitioner & Enterprise Outcomes
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Proven by 3.5 Million Practitioners & Security Leaders.
           </h2>
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600">
             Read how security professionals advanced their careers and enterprise teams protected their infrastructure with Cybrary.
           </p>
         </div>
@@ -25,35 +25,35 @@ export default function Testimonials() {
           {TESTIMONIALS.map((item, index) => (
             <div 
               key={index}
-              className="p-6 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-colors"
+              className="p-7 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all duration-200 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center space-x-1 text-amber-400">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
 
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed">
                   "{item.quote}"
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800 flex items-center space-x-3">
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center space-x-3.5">
                 <img 
                   src={item.avatar} 
                   alt={item.name} 
-                  className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                  className="w-11 h-11 rounded-full object-cover border border-slate-200 shadow-2xs"
                 />
                 <div>
-                  <div className="text-xs font-bold text-white flex items-center gap-1">
+                  <div className="text-xs font-bold text-slate-900 flex items-center gap-1">
                     <span>{item.name}</span>
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   </div>
-                  <div className="text-[11px] text-slate-400">
-                    {item.currentRole} • <span className="text-slate-300 font-medium">{item.company}</span>
+                  <div className="text-[11px] text-slate-500">
+                    {item.currentRole} • <span className="text-slate-800 font-semibold">{item.company}</span>
                   </div>
-                  <div className="text-[10px] text-emerald-400 font-mono mt-0.5">
+                  <div className="text-[10px] text-emerald-700 font-mono font-medium mt-0.5">
                     {item.certAchieved}
                   </div>
                 </div>

